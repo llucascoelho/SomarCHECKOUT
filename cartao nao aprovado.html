@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assinatura Não Realizada</title>
+  <!-- Importa a fonte Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4162AB;
+      --primary-dark: #2E5290;
+      --accent: #99D1F2;
+      --whatsapp: #25D366;
+      --whatsapp-dark: #1DA851;
+      --background-gradient: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      --text-color: #000000;
+    }
+    /* Reset e estilos base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: var(--background-gradient);
+      font-family: "Poppins", sans-serif;
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    /* Container centralizado – cartão com animação */
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 100%;
+      padding: 10px 30px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    /* Logo */
+    .logo-container {
+      margin-bottom: 0px;
+    }
+    .logo-container img {
+      max-width: 200px;
+      width: 100%;
+      height: auto;
+    }
+    /* Título e slogan */
+    h1 {
+      color: #b41a1a;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .slogan {
+      font-size: 1.3rem;
+      color: var(--primary-dark);
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+    /* Parágrafos */
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      text-align: center;
+    }
+    /* Container dos botões alinhados lado a lado */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: nowrap;
+    }
+    /* Botões de ação */
+    .btn-home,
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    .btn-home {
+      background: var(--primary);
+    }
+    .btn-home:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+    .btn-whatsapp {
+      background: var(--whatsapp);
+    }
+    .btn-whatsapp:hover {
+      background: var(--whatsapp-dark);
+      transform: translateY(-3px);
+    }
+    .btn-whatsapp img {
+      margin-right: 8px;
+    }
+    /* Footer institucional */
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    /* Media Queries para dispositivos móveis */
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px 15px;
+        max-width: 90%;
+      }
+      .logo-container img {
+        max-width: 150px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .slogan {
+        font-size: 1rem;
+        margin-bottom: 15px;
+      }
+      p {
+        font-size: 1rem;
+        margin-bottom: 15px;
+      }
+      .btn-home,
+      .btn-whatsapp {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+      .button-container {
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="https://i.ibb.co/5Jd1vM6/Logo-somar-vertical.png" alt="Logo Somar Life">
+    </div>
+    <!-- Mensagem institucional -->
+    <h1>Assinatura Não Realizada</h1>
+    <p>Prezado(a) <strong>[Nome do Assinante]</strong>,</p>
+    <p>Infelizmente, não foi possível concluir a assinatura do seu plano Somar Life.</p>
+    <p>Verifique os dados informados e tente novamente. Se o problema persistir, entre em contato com o nosso suporte para obter assistência.</p>
+    <!-- Botões de ação alinhados lado a lado -->
+    <div class="button-container">
+      <a class="btn-home" href="index.html">Tentar novamente</a>
+      <a class="btn-whatsapp" href="https://wa.me/5511999999999" target="_blank">
+        <img src="https://img.icons8.com/ios-filled/24/ffffff/whatsapp.png" alt="WhatsApp Icon">
+        whatsapp
+      </a>
+    </div>
+    <!-- Footer Institucional -->
+    <div class="footer">
+      &copy; 2025 Somar Life. Todos os direitos reservados.
+    </div>
+  </div>
+</body>
+</html>

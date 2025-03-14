@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulário Multi-Step</title>
+  <!-- Importando a fonte Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset básico e configuração de fonte */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #f0f4f8;
+      font-family: "Poppins", sans-serif; 
+      color: #333;
+      line-height: 1.6;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+    }
+    .container {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    /* Logo centralizada */
+    .logo-container {
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .logo-container img {
+      max-width: 180px;
+      width: 100%;
+      height: auto;
+    }
+    /* Stepper (layout horizontal padrão) */
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .step {
+      text-align: center;
+      flex: 1;
+      cursor: default;
+    }
+    .step .circle {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #99D1F2, #4162AB);
+      color: #fff;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px auto;
+      font-size: 0.8rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .step.active .circle {
+      background: linear-gradient(45deg, #4162AB, #000000);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+    .step.completed .circle::after {
+      content: "\2713";
+      position: absolute;
+      bottom: -5px;
+      right: -5px;
+      background-color: #28a745;
+      color: #fff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step span {
+      display: none; /* Oculta os títulos das etapas */
+    }
+    .connector {
+      flex: 1;
+      height: 2px;
+      margin: 0 5px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, #28a745, #4162AB);
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    /* Formulário */
+    .form-step {
+      display: none;
+      animation: fadeIn 0.3s ease-in;
+    }
+    .form-step.active {
+      display: block;
+    }
+    .form-step h2 {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      color: #4162AB;
+      text-align: center;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.95rem;
+      color: #333;
+    }
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: #4162AB;
+      transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+    .input-group input:focus,
+    .input-group select:focus {
+      outline: none;
+      border-color: #4162AB;
+      box-shadow: 0 0 5px rgba(65, 98, 171, 0.5);
+    }
+    .row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+    .row .input-group {
+      flex: 1;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .btn-container.single-button {
+      justify-content: flex-end;
+    }
+    /* Estilo padrão para outros botões (caso existam) */
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      background: linear-gradient(45deg, #4162AB, #99D1F2);
+      color: #fff;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background: linear-gradient(45deg, #99D1F2, #4162AB);
+      transform: translateY(-2px);
+    }
+    
+    /* === NOVOS ESTILOS PARA OS BOTÕES DE NAVEGAÇÃO === */
+    /* Botões de avanço (Avançar/Concluir) – mesmo estilo do botão "Contratar" */
+    button.avancar {
+      background: #12CC7D;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    button.avancar:hover {
+      background: #3D2099;
+      transform: translateY(-2px);
+    }
+    /* Botão Voltar – cor vermelha, mudando para o hover de contratar (#3D2099) */
+    button.voltar {
+      background: #e74c3c;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    button.voltar:hover,
+    button.voltar:active {
+      background: #3D2099;
+      transform: translateY(-2px);
+    }
+    
+    #cepMessage {
+      display: none;
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Regras para smartphone, iPhone e Safari */
+    @media only screen and (max-width: 480px) {
+      .row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      body {
+        font-size: 18px;
+      }
+      .form-step h2 {
+        font-size: 1.8rem;
+      }
+      .input-group label {
+        font-size: 1.1rem;
+      }
+      .input-group input,
+      .input-group select {
+        font-size: 1.1rem;
+      }
+      button {
+        font-size: 1.1rem;
+      }
+      input[type="date"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="https://i.ibb.co/5Jd1vM6/Logo-somar-vertical.png" alt="Logo">
+    </div>
+
+    <!-- Stepper -->
+    <div class="stepper">
+      <div class="step active">
+        <div class="circle">01</div>
+        <span>Seus Dados</span>
+      </div>
+      <div class="connector"></div>
+      <div class="step">
+        <div class="circle">02</div>
+        <span>Dados para Contato</span>
+      </div>
+      <div class="connector"></div>
+      <div class="step">
+        <div class="circle">03</div>
+        <span>Endereço</span>
+      </div>
+    </div>
+
+    <!-- Formulário multi-step -->
+    <form id="multiStepForm">
+      <!-- Passo 1: Seus Dados -->
+      <div class="form-step active">
+        <h2>Seus Dados</h2>
+        <div class="row">
+          <div class="input-group">
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" type="text" placeholder="Ex: João da Silva" required />
+          </div>
+          <div class="input-group">
+            <label for="dataNascimento">Data de Nascimento</label>
+            <input id="dataNascimento" name="dataNascimento" type="date" required />
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-group">
+            <label for="cpf">Número CPF</label>
+            <input id="cpf" name="cpf" type="text" placeholder="Ex: XXX.XXX.XXX-XX" required />
+          </div>
+          <div class="input-group">
+            <label for="sexo">Sexo</label>
+            <select id="sexo" name="sexo" required>
+              <option value="">Selecione</option>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+            </select>
+          </div>
+        </div>
+        <div class="btn-container single-button">
+          <!-- Botão Avançar -->
+          <button type="button" class="avancar" onclick="nextStep()">Avançar</button>
+        </div>
+      </div>
+
+      <!-- Passo 2: Dados para Contato -->
+      <div class="form-step">
+        <h2>Dados para Contato</h2>
+        <div class="row">
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="Ex: exemplo@dominio.com" required />
+          </div>
+          <div class="input-group">
+            <label for="telefone">Telefone</label>
+            <input id="telefone" name="telefone" type="text" placeholder="Ex: (XX)xxxxx-xxxx" required />
+          </div>
+        </div>
+        <div class="btn-container">
+          <button type="button" class="voltar" onclick="prevStep()">Voltar</button>
+          <button type="button" class="avancar" onclick="nextStep()">Avançar</button>
+        </div>
+      </div>
+
+      <!-- Passo 3: Endereço -->
+      <div class="form-step">
+        <h2>Endereço</h2>
+        <div class="input-group">
+          <label for="cep">CEP</label>
+          <input id="cep" name="cep" type="text" placeholder="Ex: 01001-000" required />
+        </div>
+        <p id="cepMessage">Buscando CEP...</p>
+        <div id="enderecoFields" class="hidden">
+          <div class="input-group">
+            <label for="logradouro">Logradouro</label>
+            <input id="logradouro" name="logradouro" type="text" readonly />
+          </div>
+          <div class="input-group">
+            <label for="numeroEndereco">Número</label>
+            <input id="numeroEndereco" name="numeroEndereco" type="text" placeholder="Ex: 123" required />
+          </div>
+          <div class="input-group">
+            <label for="complemento">Complemento</label>
+            <!-- Este campo NÃO é obrigatório -->
+            <input id="complemento" name="complemento" type="text" placeholder="Ex: Apto 101" />
+          </div>
+          <div class="input-group">
+            <label for="bairro">Bairro</label>
+            <input id="bairro" name="bairro" type="text" readonly />
+          </div>
+          <div class="input-group">
+            <label for="cidade">Cidade</label>
+            <input id="cidade" name="cidade" type="text" readonly />
+          </div>
+          <div class="input-group">
+            <label for="estado">Estado</label>
+            <input id="estado" name="estado" type="text" readonly />
+          </div>
+        </div>
+        <div class="btn-container">
+          <button type="button" class="voltar" onclick="prevStep()">Voltar</button>
+          <button type="button" class="avancar" onclick="finalizarFormulario()">Concluir</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Define a data máxima para o campo "Data de Nascimento" (hoje)
+    window.addEventListener("load", function() {
+      const today = new Date().toISOString().split("T")[0];
+      document.getElementById("dataNascimento").setAttribute("max", today);
+    });
+
+    // Seleciona as etapas e os formulários
+    const steps = document.querySelectorAll('.step');
+    const formSteps = document.querySelectorAll('.form-step');
+    let currentStep = 0;
+
+    // Atualiza a visualização das etapas e marca as já concluídas
+    function updateFormSteps() {
+      formSteps.forEach((formStep, index) => {
+        formStep.classList.toggle('active', index === currentStep);
+      });
+      steps.forEach((step, index) => {
+        step.classList.toggle('active', index === currentStep);
+        if (index < currentStep) {
+          step.classList.add('completed');
+        } else {
+          step.classList.remove('completed');
+        }
+        step.style.cursor = (index <= currentStep) ? 'pointer' : 'default';
+      });
+    }
+
+    // Valida todos os campos obrigatórios do passo atual
+    function validateStep() {
+      const currentFormStep = formSteps[currentStep];
+      const requiredFields = currentFormStep.querySelectorAll('input[required], select[required]');
+      for (const field of requiredFields) {
+        if (!field.value.trim()) {
+          field.focus();
+          field.reportValidity();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // Avança para o próximo passo se os campos obrigatórios estiverem preenchidos
+    function nextStep() {
+      if (!validateStep()) return;
+      if (currentStep < formSteps.length - 1) {
+        currentStep++;
+        updateFormSteps();
+      }
+    }
+
+    // Retorna para o passo anterior
+    function prevStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        updateFormSteps();
+      }
+    }
+
+    steps.forEach((step, index) => {
+      step.addEventListener('click', () => {
+        if (index <= currentStep) {
+          currentStep = index;
+          updateFormSteps();
+        }
+      });
+    });
+
+    // Máscara e validação de CPF
+    const cpfInput = document.getElementById('cpf');
+    cpfInput.addEventListener('input', function() {
+      mascaraCPF(this);
+    });
+    cpfInput.addEventListener('blur', function() {
+      if (this.value.trim() !== '' && !validaCPF(this.value)) {
+        alert('CPF inválido! Por favor, verifique e tente novamente.');
+        this.value = '';
+        this.style.borderColor = "#ccc"; // reseta a borda se inválido
+        this.focus();
+      } else if (this.value.trim() !== '' && validaCPF(this.value)) {
+        this.style.borderColor = "#12CC7D";
+      }
+    });
+    function mascaraCPF(input) {
+      let value = input.value.replace(/\D/g, '');
+      if (value.length > 11) value = value.substring(0, 11);
+      if (value.length > 9) {
+        input.value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+      } else if (value.length > 6) {
+        input.value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+      } else if (value.length > 3) {
+        input.value = value.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+      } else {
+        input.value = value;
+      }
+    }
+    function validaCPF(cpf) {
+      cpf = cpf.replace(/[^\d]+/g, '');
+      if (cpf.length !== 11) return false;
+      if (/^(.)\1+$/.test(cpf)) return false;
+      let soma = 0;
+      for (let i = 0; i < 9; i++) {
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
+      }
+      let resto = 11 - (soma % 11);
+      let digito1 = (resto > 9) ? 0 : resto;
+      soma = 0;
+      for (let i = 0; i < 10; i++) {
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
+      }
+      resto = 11 - (soma % 11);
+      let digito2 = (resto > 9) ? 0 : resto;
+      return (
+        parseInt(cpf.charAt(9)) === digito1 &&
+        parseInt(cpf.charAt(10)) === digito2
+      );
+    }
+
+    // Máscara para telefone
+    const telefoneInput = document.getElementById('telefone');
+    telefoneInput.addEventListener('input', function() {
+      mascaraTelefone(this);
+    });
+    function mascaraTelefone(input) {
+      let value = input.value.replace(/\D/g, '');
+      if (value.length > 11) value = value.substring(0, 11);
+      if (value.length > 6) {
+        input.value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1)$2-$3");
+      } else if (value.length > 2) {
+        input.value = value.replace(/(\d{2})(\d{0,5})/, "($1)$2");
+      } else {
+        input.value = value;
+      }
+    }
+
+    // Busca de CEP (ViaCEP API)
+    const cepInput = document.getElementById('cep');
+    const enderecoFields = document.getElementById('enderecoFields');
+    const cepMessage = document.getElementById('cepMessage');
+    cepInput.addEventListener('input', function() {
+      let cep = cepInput.value.replace(/\D/g, '');
+      if (cep.length < 8) {
+        enderecoFields.classList.add('hidden');
+        cepMessage.style.display = 'none';
+      }
+      if (cep.length === 8) {
+        buscarCEP();
+      }
+    });
+    function buscarCEP() {
+      let cep = cepInput.value.replace(/\D/g, '');
+      if (cep.length !== 8) {
+        alert('Por favor, insira um CEP válido com 8 dígitos.');
+        cepInput.focus();
+        return;
+      }
+      cepMessage.style.display = 'block';
+      fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => response.json())
+        .then(data => {
+          cepMessage.style.display = 'none';
+          if (data.erro) {
+            alert('CEP não encontrado!');
+            enderecoFields.classList.add('hidden');
+          } else {
+            document.getElementById('logradouro').value = data.logradouro;
+            document.getElementById('bairro').value = data.bairro;
+            document.getElementById('cidade').value = data.localidade;
+            document.getElementById('estado').value = data.uf;
+            enderecoFields.classList.remove('hidden');
+          }
+        })
+        .catch(error => {
+          cepMessage.style.display = 'none';
+          alert('Erro ao buscar CEP.');
+          console.error(error);
+        });
+    }
+
+    // Finalização do Formulário com validação dos campos do passo atual
+    function finalizarFormulario() {
+      if (!validateStep()) return;
+      const cpfValue = cpfInput.value.trim();
+      if (!validaCPF(cpfValue)) {
+        alert('CPF inválido! Verifique antes de enviar.');
+        cpfInput.focus();
+        return;
+      }
+      alert('Formulário enviado com sucesso!');
+      window.location.href = "contratação.html";
+    }
+
+    // Altera a cor da borda para verde (#12CC7D) ao preencher os campos corretamente
+    document.querySelectorAll('.input-group input, .input-group select').forEach(input => {
+      input.addEventListener('blur', function() {
+        if(this.value.trim() !== "") {
+          // Para o CPF, utiliza a validação personalizada
+          if(this.id === 'cpf'){
+            if(validaCPF(this.value)){
+              this.style.borderColor = "#12CC7D";
+            } else {
+              this.style.borderColor = "#e74c3c";
+            }
+          } else {
+            // Para os demais campos, usa a validação nativa
+            if(this.checkValidity()){
+              this.style.borderColor = "#12CC7D";
+            } else {
+              this.style.borderColor = "#ccc";
+            }
+          }
+        } else {
+          this.style.borderColor = "#ccc";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
