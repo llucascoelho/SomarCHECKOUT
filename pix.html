@@ -15,7 +15,7 @@
       --text-color: #000;
       --shadow-light: rgba(0, 0, 0, 0.15);
       --shadow-medium: rgba(0, 0, 0, 0.25);
-      --border-color: #ddd;
+      --border-color: #ccc;
       --button-hover: #3D2099;
     }
     /* Reset e estilos base */
@@ -169,7 +169,7 @@
       background: var(--button-hover);
       transform: translateY(-2px);
     }
-    /* Área de Resumo da Contratação – design aprimorado sem degradê e com os campos de valor */
+    /* Área de Resumo da Contratação – design aprimorado com campo Total extra */
     .summary {
       width: 350px;
       min-width: 280px;
@@ -183,14 +183,21 @@
       font-size: 1.4rem;
       text-align: center;
       margin-bottom: 20px;
-      /* Cor fixa sem degradê */
       color: var(--primary);
+    }
+    .summary-price {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .summary-price h2 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin: 0;
     }
     .summary-payment {
       border: 1px solid #eee;
       border-radius: 6px;
       padding: 10px;
-      margin-bottom: 20px;
       background: #f9f9f9;
     }
     .summary-payment h4 {
@@ -203,13 +210,8 @@
       margin-bottom: 8px;
     }
     @media (max-width: 768px) {
-      .content-row {
-        flex-direction: column;
-      }
-      .summary {
-        width: 100%;
-        margin-top: 20px;
-      }
+      .content-row { flex-direction: column; }
+      .summary { width: 100%; margin-top: 20px; }
     }
   </style>
 </head>
@@ -256,16 +258,20 @@
           <button class="copy-button" onclick="copyPixKey()">Copiar chave PIX</button>
         </div>
       </div>
-      <!-- Área de Resumo da Contratação com os campos de valor do menu de pagamento -->
+      <!-- Área de Resumo da Contratação com o campo Total inserido -->
       <div class="summary">
         <h3>Resumo da contratação</h3>
+        <!-- Bloco para exibir o valor total -->
+        <div class="summary-price">
+          <h2 id="summaryTotalValue">R$ 84,90</h2>
+        </div>
+        <!-- Bloco com os campos de pagamento -->
         <div class="summary-payment">
           <h4>Pagamento</h4>
           <p id="mensalidadeSummary">Mensalidade: R$ 0.00</p>
           <p id="extrasSummary">Extras: R$ 0.00</p>
           <p id="totalSummary">Total: R$ 0.00</p>
         </div>
-        <!-- (Outros detalhes de contratação, se desejado, podem ser adicionados abaixo) -->
       </div>
     </div>
   </div>
