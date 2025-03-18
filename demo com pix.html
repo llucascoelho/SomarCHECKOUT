@@ -7,17 +7,40 @@
   <!-- Fonte Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    /* ===================== Global ===================== */
+    /* ===================== VARIÁVEIS GLOBAIS E RESET ===================== */
+    :root {
+      --primary: #4162AB;
+      --primary-dark: #2E5290;
+      --accent: #99D1F2;
+      --background-gradient: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      --text-color: #000000;
+      --shadow-light: rgba(0, 0, 0, 0.15);
+      --shadow-medium: rgba(0, 0, 0, 0.25);
+      --shadow-heavy: rgba(0, 0, 0, 0.3);
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: "Poppins", sans-serif; line-height: 1.6; -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--background-gradient);
+      font-family: "Poppins", sans-serif;
+      color: var(--text-color);
+      line-height: 1.6;
+      -webkit-text-size-adjust: 100%;
+    }
+    /* ===================== CONTAINER PADRÃO (para todas as páginas) ===================== */
+    .container {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    
+    /* ===================== ESTILOS DO FORMULÁRIO MULTI-STEP ===================== */
     .hidden { display: none; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     
-    /* ===================== Estilos do Formulário Multi-Step ===================== */
-    .container {
-      background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 90%; max-width: 800px; margin: 20px auto; padding: 20px;
-    }
     .logo-container { text-align: center; margin-bottom: 20px; }
     .logo-container img { max-width: 180px; width: 100%; height: auto; }
     .stepper { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
@@ -83,13 +106,7 @@
       input[type="date"] { appearance: none; }
     }
     
-    /* ===================== Estilos do Checkout (Contratação) e Modal ===================== */
-    :root {
-      --primary: #4162AB; --primary-dark: #2E5290; --accent: #99D1F2;
-      --background-gradient: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-      --shadow-medium: rgba(0, 0, 0, 0.25);
-    }
-    body.checkout { background: var(--background-gradient); }
+    /* ===================== ESTILOS DO CHECKOUT (Contratação) E MODAL ===================== */
     .checkout-container {
       background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       width: 90%; max-width: 1200px; margin: 20px auto; padding: 20px;
@@ -104,7 +121,6 @@
     .person-icon { margin-right: 20px; }
     .info { flex: 1; text-align: left; }
     .info span:first-child { font-weight: bold; }
-    .info span:first-child::before { content: ""; }
     .info span { margin-right: 10px; }
     .right-controls { display: flex; align-items: center; gap: 10px; }
     .editar-btn {
@@ -143,7 +159,7 @@
     .modal-content h3 { margin-bottom: 10px; color: var(--primary); }
     .modal-content p { font-size: 0.95rem; color: #333; margin-bottom: 8px; }
     
-    /* ===================== Itens do Checkout ===================== */
+    /* ===================== ITENS DO CHECKOUT ===================== */
     .content-row { display: flex; gap: 20px; margin-top: 20px; }
     .opcoes-container { flex: 1; display: flex; flex-direction: column; gap: 10px; }
     .opcao {
@@ -165,7 +181,7 @@
       width: 320px; background: #fff; border: 1px solid #ccc; border-radius: 8px;
       padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    /* Tabs para alternar entre Recorrencia e semestral */
+    /* Tabs para alternar entre Recorrência e semestral/PIX */
     .tabs-container {
       display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
@@ -177,7 +193,6 @@
     }
     .tab-button.active { background: var(--primary); color: #fff; }
     .tab-button img { width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; }
-    /* Container dos detalhes de pagamento */
     .tab-content { display: none; }
     .tab-content.active { display: block; }
     .price-section { text-align: center; }
@@ -228,7 +243,7 @@
       font-weight: bold;
     }
     
-    /* ===================== Botão de Forma de Pagamento ===================== */
+    /* ===================== BOTÃO DE FORMA DE PAGAMENTO ===================== */
     .payment-methods {
       margin: 10px 0;
     }
@@ -249,20 +264,66 @@
       cursor: pointer;
     }
     
-    /* ===================== Estilos da Página Pagamento Pix ===================== */
-    /* A página de Pagamento Pix será a mesma do código fornecido a seguir, sem alterações */
-    /* Os estilos abaixo vêm do código da página de pagamento PIX fornecido */
-    :root {
-      --text-color: #000;
-      --shadow-light: rgba(0, 0, 0, 0.15);
-      --border-color: #ccc;
-      --button-hover: #3D2099;
+    @media (max-width: 768px) {
+      .content-row { flex-direction: column; }
+      .top-bar .info span:not(:first-child) { display: none; }
+      .top-bar { padding: 5px 15px; justify-content: space-between; }
+      .top-bar .info { text-align: left; flex: 1; }
+      .menu-right { width: 100%; margin-top: 20px; }
+      .tabs-container { flex-direction: column; }
     }
-    .pix-payment, .pix-instructions, .qr-code-container, .copy-container, .copy-button,
-    .summary, .summary-price, .summary-payment { /* estes seletores já foram definidos acima, mas aqui reforçamos para o PIX */
-      /* Mantém os estilos conforme o código da página de pagamento PIX fornecido */
+    @media (max-width: 480px) {
+      .logo-container img { max-width: 150px; }
+      .top-bar { padding: 5px 10px; }
+      .info { font-size: 0.9rem; text-align: left; }
+      .tab-button { padding: 8px; font-size: 0.9rem; }
+      .price-section h2 { font-size: 1.3rem; }
+      .pagamento h3 { font-size: 0.9rem; }
+      .pagamento p { font-size: 0.8rem; }
     }
-    .pix-payment { /* ajustes específicos para o bloco PIX */
+    
+    /* ===================== ESTILOS DA PÁGINA PAGAMENTO PIX (ATUALIZADA) ===================== */
+    #pagamentoPixSection .container {
+      /* Já usa a classe container padrão */
+    }
+    #pagamentoPixSection .top-bar {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 4px 10px var(--shadow-medium);
+      margin-bottom: 20px;
+      transition: box-shadow 0.3s;
+    }
+    #pagamentoPixSection .person-icon { width: 32px; height: 32px; }
+    #pagamentoPixSection .info {
+      display: flex;
+      gap: 15px;
+      flex: 1;
+      font-size: 1rem;
+      flex-wrap: wrap;
+    }
+    /* Removendo negrito do primeiro item (Nome) na barra de informações da página de Pagamento Pix */
+    #pagamentoPixSection .info span:first-child {
+      font-weight: normal;
+    }
+    #pagamentoPixSection .arrow-down {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    #pagamentoPixSection .arrow-down.open { transform: rotate(180deg); }
+    #pagamentoPixSection .content-row {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+      align-items: flex-start;
+    }
+    #pagamentoPixSection .pix-payment {
       flex: 1;
       background: #f9f9f9;
       border: 1px solid var(--border-color);
@@ -273,7 +334,7 @@
       flex-direction: column;
       gap: 20px;
     }
-    .pix-payment h2 {
+    #pagamentoPixSection .pix-payment h2 {
       font-size: 1.3rem;
       display: flex;
       align-items: center;
@@ -283,8 +344,8 @@
       padding-bottom: 10px;
       margin-bottom: 10px;
     }
-    .pix-flex { display: flex; gap: 20px; align-items: flex-start; }
-    .pix-instructions {
+    #pagamentoPixSection .pix-flex { display: flex; gap: 20px; align-items: flex-start; }
+    #pagamentoPixSection .pix-instructions {
       flex: 1;
       font-size: 0.95rem;
       line-height: 1.5;
@@ -293,18 +354,18 @@
       border: 1px solid var(--border-color);
       border-radius: 8px;
     }
-    .pix-instructions ol {
+    #pagamentoPixSection .pix-instructions ol {
       counter-reset: step;
       list-style: none;
       padding-left: 0;
       margin-top: 10px;
     }
-    .pix-instructions ol li {
+    #pagamentoPixSection .pix-instructions ol li {
       position: relative;
       padding-left: 40px;
       margin-bottom: 10px;
     }
-    .pix-instructions ol li::before {
+    #pagamentoPixSection .pix-instructions ol li::before {
       counter-increment: step;
       content: counter(step);
       position: absolute;
@@ -321,20 +382,23 @@
       justify-content: center;
       font-weight: 500;
     }
-    .qr-code-container img {
+    #pagamentoPixSection .qr-code-container {
+      flex-shrink: 0;
+    }
+    #pagamentoPixSection .qr-code-container img {
       width: 180px;
       height: 180px;
       object-fit: contain;
       border-radius: 8px;
       border: 4px solid #eee;
     }
-    .copy-container {
+    #pagamentoPixSection .copy-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 10px;
     }
-    .copy-container input {
+    #pagamentoPixSection .copy-container input {
       width: 100%;
       max-width: 400px;
       padding: 10px;
@@ -344,22 +408,23 @@
       text-align: center;
       color: #333;
     }
-    .copy-button {
+    /* Botão "Copiar chave PIX" com mesmo efeito do botão "Contratar" */
+    #pagamentoPixSection .copy-button {
       background: #12CC7D;
       border: none;
       border-radius: 6px;
       color: #fff;
-      padding: 10px 15px;
-      font-size: 0.95rem;
+      padding: 12px 25px;
+      font-size: 1rem;
       font-weight: 500;
       cursor: pointer;
       transition: background 0.3s, transform 0.2s;
     }
-    .copy-button:hover {
-      background: var(--button-hover);
+    #pagamentoPixSection .copy-button:hover {
+      background: #3D2099;
       transform: translateY(-2px);
     }
-    .summary {
+    #pagamentoPixSection .summary {
       width: 350px;
       min-width: 280px;
       background: #fff;
@@ -368,23 +433,75 @@
       padding: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .summary h3 {
+    #pagamentoPixSection .summary h3 {
       font-size: 1.4rem;
       text-align: center;
       margin-bottom: 20px;
       color: var(--primary);
     }
-    .summary-price { text-align: center; margin-bottom: 20px; }
-    .summary-price h2 { font-size: 1.8rem; color: var(--primary); margin: 0; }
-    .summary-payment {
+    #pagamentoPixSection .summary-price {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #pagamentoPixSection .summary-price h2 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin: 0;
+    }
+    #pagamentoPixSection .summary-payment {
       border: 1px solid #eee;
       border-radius: 6px;
       padding: 10px;
       background: #f9f9f9;
     }
-    .summary-payment h4 { font-size: 1rem; color: var(--primary); margin-bottom: 10px; }
-    .summary-payment p { font-size: 0.95rem; margin-bottom: 8px; }
+    #pagamentoPixSection .summary-payment h4 {
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    #pagamentoPixSection .summary-payment p {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
     
+    /* ===================== BOTÃO DE FORMA DE PAGAMENTO ===================== */
+    .payment-methods {
+      margin: 10px 0;
+    }
+    .payment-methods label {
+      display: block;
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+    .payment-methods select {
+      width: 100%;
+      padding: 10px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-weight: 500;
+      color: var(--primary);
+      cursor: pointer;
+    }
+    
+    @media (max-width: 768px) {
+      .content-row { flex-direction: column; }
+      .top-bar .info span:not(:first-child) { display: none; }
+      .top-bar { padding: 5px 15px; justify-content: space-between; }
+      .top-bar .info { text-align: left; flex: 1; }
+      .menu-right { width: 100%; margin-top: 20px; }
+      .tabs-container { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .logo-container img { max-width: 150px; }
+      .top-bar { padding: 5px 10px; }
+      .info { font-size: 0.9rem; text-align: left; }
+      .tab-button { padding: 8px; font-size: 0.9rem; }
+      .price-section h2 { font-size: 1.3rem; }
+      .pagamento h3 { font-size: 0.9rem; }
+      .pagamento p { font-size: 0.8rem; }
+    }
   </style>
 </head>
 <body>
@@ -522,7 +639,6 @@
       </div>
       <div class="right-controls">
         <button type="button" class="editar-btn" onclick="voltarParaFormulario()">Editar Dados</button>
-        <!-- Seta para exibir/ocultar o resumo dos dados -->
         <img src="https://img.icons8.com/ios-filled/50/ffffff/chevron-down.png" 
              alt="Seta para baixo" class="arrow-down" id="arrowIcon" onclick="toggleDetalhes()">
       </div>
@@ -652,17 +768,17 @@
             <div class="terms">
               <input type="checkbox" id="acceptTerms">
               <label for="acceptTerms">
-                Li e concordo com o <a href="https://drive.google.com/file/d/1-fPh7qbHNHoc0fDzuPTGUXggLBvx46lu/view?usp=sharing" target="_blank">Termos de uso</a>
+                Li e concordo com o <a href="https://drive.google.com/file/d/1-fPh7qbHNHoc0DzuPTGUXggLBvx46lu/view?usp=sharing" target="_blank">Termos de uso</a>
                 e a <a href="https://drive.google.com/file/d/16UwKRPuFjZC-EYOQfC2caRbvEJuGmUYl/view" target="_blank">Política de privacidade</a>.
               </label>
             </div>
-            <!-- Botão que chama a função genérica de pagamento -->
             <button class="contratar" type="button" onclick="iniciarPagamento()">Contratar</button>
           </div>
           <!-- Aba semestral -->
           <div class="tab-content" id="tabPix">
             <div class="price-section">
               <h3 id="planNameTitlePix">Plano Básico</h3>
+              <!-- Exibe o preço com desconto PIX utilizando o design do desconto -->
               <h2 id="planPriceSemestral">R$ 84,90</h2>
             </div>
             <div class="pagamento">
@@ -683,11 +799,10 @@
             <div class="terms">
               <input type="checkbox" id="acceptTerms2">
               <label for="acceptTerms2">
-                Li e concordo com o <a href="https://drive.google.com/file/d/1-fPh7qbHNHoc0fDzuPTGUXggLBvx46lu/view?usp=sharing" target="_blank">Termos de uso</a>
+                Li e concordo com o <a href="https://drive.google.com/file/d/1-fPh7qbHNHoc0DzuPTGUXggLBvx46lu/view?usp=sharing" target="_blank">Termos de uso</a>
                 e a <a href="https://drive.google.com/file/d/16UwKRPuFjZC-EYOQfC2caRbvEJuGmUYl/view" target="_blank">Política de privacidade</a>.
               </label>
             </div>
-            <!-- Botão que chama a função genérica de pagamento -->
             <button class="contratar" type="button" onclick="iniciarPagamento()">Contratar</button>
           </div>
         </div>
@@ -695,14 +810,12 @@
     </div>
   </div>
 
-  <!-- Página 3: Pagamento Pix (conteúdo igual ao código fornecido) -->
+  <!-- Página 3: Pagamento Pix -->
   <div id="pagamentoPixSection" style="display:none;">
     <div class="container">
-      <!-- Logo -->
       <div class="logo-container">
         <img src="https://i.ibb.co/5Jd1vM6/Logo-somar-vertical.png" alt="Logo Somar Life">
       </div>
-      <!-- Barra de informações -->
       <div class="top-bar">
         <img src="https://img.icons8.com/ios/50/99D1F2/user--v1.png" alt="Ícone de Pessoa" class="person-icon">
         <div class="info">
@@ -713,9 +826,7 @@
         </div>
         <img src="https://img.icons8.com/ios-filled/50/ffffff/chevron-down.png" alt="Seta para baixo" class="arrow-down" id="arrowIcon" onclick="toggleDetalhes()">
       </div>
-      <!-- Conteúdo principal: Pagamento PIX e Resumo da Contratação -->
       <div class="content-row">
-        <!-- Bloco de Pagamento via PIX -->
         <div class="pix-payment">
           <h2>
             <img src="https://img.icons8.com/color/48/000000/pix.png" alt="Ícone PIX" width="24" height="24">
@@ -739,14 +850,11 @@
             <button class="copy-button" onclick="copyPixKey()">Copiar chave PIX</button>
           </div>
         </div>
-        <!-- Área de Resumo da Contratação com o campo Total inserido -->
         <div class="summary">
           <h3>Resumo da contratação</h3>
-          <!-- Bloco para exibir o valor total -->
           <div class="summary-price">
             <h2 id="summaryTotalValue">R$ 84,90</h2>
           </div>
-          <!-- Bloco com os campos de pagamento -->
           <div class="summary-payment">
             <h4>Pagamento</h4>
             <p id="mensalidadeSummary">Mensalidade: R$ 0.00</p>
@@ -890,7 +998,7 @@
       document.querySelector('#opcao1').closest('.opcao').querySelector('.opcao-right').textContent = "+ R$ " + priceDependente1.toFixed(2) + "/Mês";
       document.querySelector('#opcao2').closest('.opcao').querySelector('.opcao-right').textContent = "+ R$ " + priceDependente4.toFixed(2) + "/Mês";
 
-      // Esconde o Checkout (Formulário Multi-Step) e exibe a página de Contratação
+      // Esconde o formulário multi-step e exibe o checkout
       document.getElementById("multiStepSection").style.display = "none";
       document.getElementById("checkoutSection").style.display = "block";
       document.getElementById("topName").textContent = "Nome: " + document.getElementById("nome").value;
@@ -1018,6 +1126,19 @@
       }
       document.getElementById('planNameTitle').textContent = "Plano " + selectedPlanName;
       document.getElementById('planNameTitlePix').textContent = "Plano " + selectedPlanName;
+      
+      // Atualiza o menu de resumo da contratação com os mesmos valores do menu de pagamento
+      if(document.getElementById('mensalBtn').classList.contains('active')) {
+        document.getElementById('summaryTotalValue').textContent = document.getElementById('planPrice').textContent;
+        document.getElementById('mensalidadeSummary').textContent = document.getElementById('mensalidadeText').textContent;
+        document.getElementById('extrasSummary').textContent = document.getElementById('extrasText').textContent;
+        document.getElementById('totalSummary').innerHTML = document.getElementById('totalText').innerHTML;
+      } else {
+        document.getElementById('summaryTotalValue').textContent = document.getElementById('planPriceSemestral').textContent;
+        document.getElementById('mensalidadeSummary').textContent = document.getElementById('valorPlanoText').textContent;
+        document.getElementById('extrasSummary').textContent = document.getElementById('extrasTextPix').textContent;
+        document.getElementById('totalSummary').innerHTML = document.getElementById('totalTextPix').innerHTML;
+      }
     }
     
     document.getElementById("paymentMethodSelectRecorrencia").addEventListener("change", updatePaymentSummary);
@@ -1094,24 +1215,25 @@
       document.getElementById("summaryEstado").textContent = "Estado: " + document.getElementById("estado").value;
     }
     
-    // Utilizando window.getComputedStyle para verificar o display
     function toggleDetalhes() {
       const popup = document.getElementById('popupModal');
       const arrowIcon = document.getElementById('arrowIcon');
-      const computedStyle = window.getComputedStyle(popup);
-      if (computedStyle.display === 'none') {
+      if (popup.style.display === 'block') {
+        popup.style.display = 'none';
+        popup.classList.add('hidden');
+        arrowIcon.classList.remove('open');
+      } else {
         updateSummary();
         popup.style.display = 'block';
+        popup.classList.remove('hidden');
         arrowIcon.classList.add('open');
-      } else {
-        popup.style.display = 'none';
-        arrowIcon.classList.remove('open');
       }
     }
     
     function closePopup() {
       const popup = document.getElementById('popupModal');
       popup.style.display = 'none';
+      popup.classList.add('hidden');
       document.getElementById('arrowIcon').classList.remove('open');
     }
     
@@ -1134,20 +1256,15 @@
     });
 
     /* ======= FUNÇÕES PARA PAGAMENTO PIX (Página 3) ======= */
-    // Função genérica que inicia o pagamento conforme o método selecionado
     function iniciarPagamento() {
-      // Identifica a aba ativa (tab-content ativa)
       const tabAtiva = document.querySelector('.tab-content.active');
-      // Busca o select dentro da aba ativa
       const selectPagamento = tabAtiva.querySelector('select');
       const metodoSelecionado = selectPagamento.value;
       
-      // Verifica se o método de pagamento é PIX ou PIX recorrente
       if (metodoSelecionado === "pix" || metodoSelecionado === "pix_recorrente") {
         document.getElementById("checkoutSection").style.display = "none";
         document.getElementById("pagamentoPixSection").style.display = "block";
       } else {
-        // Aqui você pode tratar o fluxo para pagamento via cartão de crédito ou outro método
         alert("Processando pagamento via Cartão de Crédito");
       }
     }
@@ -1156,7 +1273,6 @@
       document.getElementById("checkoutSection").style.display = "block";
     }
     
-    /* ======= FUNÇÃO PARA COPIAR A CHAVE PIX ======= */
     function copyPixKey() {
       const pixKeyInput = document.getElementById('pixKeyInput');
       pixKeyInput.select();
@@ -1164,6 +1280,41 @@
       document.execCommand('copy');
       alert('Chave PIX copiada!');
     }
+  </script>
+
+  <!-- NOVO SCRIPT: Armazenamento em Cache dos Dados do Checkout -->
+  <script>
+    (function(){
+      // Lista de IDs dos campos do formulário multi-step
+      const formFields = [
+        "nome", "dataNascimento", "cpf", "sexo", "idPlano",
+        "email", "telefone", "cep", "logradouro", "numeroEndereco",
+        "complemento", "bairro", "cidade", "estado"
+      ];
+
+      // Ao carregar a página, preenche os campos com os dados armazenados (se houver)
+      window.addEventListener("load", function() {
+        formFields.forEach(function(fieldId){
+          const storedValue = localStorage.getItem("checkout_" + fieldId);
+          if(storedValue) {
+            const field = document.getElementById(fieldId);
+            if(field) {
+              field.value = storedValue;
+            }
+          }
+        });
+      });
+
+      // Adiciona um listener para armazenar o valor de cada campo sempre que ele for alterado
+      formFields.forEach(function(fieldId) {
+        const field = document.getElementById(fieldId);
+        if(field) {
+          field.addEventListener("change", function() {
+            localStorage.setItem("checkout_" + fieldId, field.value);
+          });
+        }
+      });
+    })();
   </script>
 </body>
 </html>
