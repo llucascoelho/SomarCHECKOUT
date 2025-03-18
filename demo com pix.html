@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Formulário Multi-Step, Checkout e Resumo</title>
+  <title>Formulário Multi-Step, Checkout e Pagamento Pix</title>
   <!-- Fonte Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
@@ -249,30 +249,142 @@
       cursor: pointer;
     }
     
-    @media (max-width: 768px) {
-      .content-row { flex-direction: column; }
-      .top-bar .info span:not(:first-child) { display: none; }
-      .top-bar { padding: 5px 15px; justify-content: space-between; }
-      .top-bar .info { text-align: left; flex: 1; }
-      .menu-right { width: 100%; margin-top: 20px; }
-      .tabs-container { flex-direction: column; }
+    /* ===================== Estilos da Página Pagamento Pix ===================== */
+    /* A página de Pagamento Pix será a mesma do código fornecido a seguir, sem alterações */
+    /* Os estilos abaixo vêm do código da página de pagamento PIX fornecido */
+    :root {
+      --text-color: #000;
+      --shadow-light: rgba(0, 0, 0, 0.15);
+      --border-color: #ccc;
+      --button-hover: #3D2099;
     }
-    @media (max-width: 480px) {
-      .logo-container img { max-width: 150px; }
-      .top-bar { padding: 5px 10px; }
-      .info { font-size: 0.9rem; text-align: left; }
-      .tab-button { padding: 8px; font-size: 0.9rem; }
-      .price-section h2 { font-size: 1.3rem; }
-      .pagamento h3 { font-size: 0.9rem; }
-      .pagamento p { font-size: 0.8rem; }
+    .pix-payment, .pix-instructions, .qr-code-container, .copy-container, .copy-button,
+    .summary, .summary-price, .summary-payment { /* estes seletores já foram definidos acima, mas aqui reforçamos para o PIX */
+      /* Mantém os estilos conforme o código da página de pagamento PIX fornecido */
     }
-    
-    /* ===================== Estilo da Página Pagamento Pix ===================== */
-    .pagamento-pix-container {
-      background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 90%; max-width: 1200px; margin: 20px auto; padding: 20px;
+    .pix-payment { /* ajustes específicos para o bloco PIX */
+      flex: 1;
+      background: #f9f9f9;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px var(--shadow-light);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .pix-payment h2 {
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-dark);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    .pix-flex { display: flex; gap: 20px; align-items: flex-start; }
+    .pix-instructions {
+      flex: 1;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+    .pix-instructions ol {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+      margin-top: 10px;
+    }
+    .pix-instructions ol li {
+      position: relative;
+      padding-left: 40px;
+      margin-bottom: 10px;
+    }
+    .pix-instructions ol li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: var(--primary);
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+    }
+    .qr-code-container img {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 4px solid #eee;
+    }
+    .copy-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .copy-container input {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      font-size: 0.95rem;
       text-align: center;
+      color: #333;
     }
+    .copy-button {
+      background: #12CC7D;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      padding: 10px 15px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .copy-button:hover {
+      background: var(--button-hover);
+      transform: translateY(-2px);
+    }
+    .summary {
+      width: 350px;
+      min-width: 280px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .summary h3 {
+      font-size: 1.4rem;
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+    .summary-price { text-align: center; margin-bottom: 20px; }
+    .summary-price h2 { font-size: 1.8rem; color: var(--primary); margin: 0; }
+    .summary-payment {
+      border: 1px solid #eee;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f9f9f9;
+    }
+    .summary-payment h4 { font-size: 1rem; color: var(--primary); margin-bottom: 10px; }
+    .summary-payment p { font-size: 0.95rem; margin-bottom: 8px; }
+    
   </style>
 </head>
 <body>
@@ -583,14 +695,67 @@
     </div>
   </div>
 
-  <!-- Página 3: Pagamento Pix -->
-  <div id="pagamentoPixSection" class="pagamento-pix-container" style="display:none;">
-    <div class="logo-container">
-      <img src="https://i.ibb.co/5Jd1vM6/Logo-somar-vertical.png" alt="Logo">
+  <!-- Página 3: Pagamento Pix (conteúdo igual ao código fornecido) -->
+  <div id="pagamentoPixSection" style="display:none;">
+    <div class="container">
+      <!-- Logo -->
+      <div class="logo-container">
+        <img src="https://i.ibb.co/5Jd1vM6/Logo-somar-vertical.png" alt="Logo Somar Life">
+      </div>
+      <!-- Barra de informações -->
+      <div class="top-bar">
+        <img src="https://img.icons8.com/ios/50/99D1F2/user--v1.png" alt="Ícone de Pessoa" class="person-icon">
+        <div class="info">
+          <span id="topName">Nome: Lucas</span>
+          <span>Seu Plano: Básico</span>
+          <span id="topTelefone">Telefone: 51999562099</span>
+          <span id="topEmail">Email: lucas@exemplo.com</span>
+        </div>
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/chevron-down.png" alt="Seta para baixo" class="arrow-down" id="arrowIcon" onclick="toggleDetalhes()">
+      </div>
+      <!-- Conteúdo principal: Pagamento PIX e Resumo da Contratação -->
+      <div class="content-row">
+        <!-- Bloco de Pagamento via PIX -->
+        <div class="pix-payment">
+          <h2>
+            <img src="https://img.icons8.com/color/48/000000/pix.png" alt="Ícone PIX" width="24" height="24">
+            Pagamento via PIX
+          </h2>
+          <div class="pix-flex">
+            <div class="pix-instructions">
+              <p>Siga estes passos para realizar o pagamento:</p>
+              <ol>
+                <li>Abra o app do seu banco.</li>
+                <li>Selecione a opção PIX e escaneie o QR Code.</li>
+                <li>Confirme o pagamento.</li>
+              </ol>
+            </div>
+            <div class="qr-code-container">
+              <img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=ExemploDeChavePix" alt="QR Code de Pagamento">
+            </div>
+          </div>
+          <div class="copy-container">
+            <input type="text" id="pixKeyInput" value="00020126360014BR.GOV.BCB.PIX0114+SEU-EMAIL-OU-CHAVE+5204000053039865802BR5925NOME+EXEMPLO6009SAO PAULO62070503***6304ABCD" readonly>
+            <button class="copy-button" onclick="copyPixKey()">Copiar chave PIX</button>
+          </div>
+        </div>
+        <!-- Área de Resumo da Contratação com o campo Total inserido -->
+        <div class="summary">
+          <h3>Resumo da contratação</h3>
+          <!-- Bloco para exibir o valor total -->
+          <div class="summary-price">
+            <h2 id="summaryTotalValue">R$ 84,90</h2>
+          </div>
+          <!-- Bloco com os campos de pagamento -->
+          <div class="summary-payment">
+            <h4>Pagamento</h4>
+            <p id="mensalidadeSummary">Mensalidade: R$ 0.00</p>
+            <p id="extrasSummary">Extras: R$ 0.00</p>
+            <p id="totalSummary">Total: R$ 0.00</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <h2>Pagamento Pix</h2>
-    <p>Esta é a página destinada ao pagamento via Pix. (Conteúdo em desenvolvimento...)</p>
-    <button type="button" onclick="voltarParaContratacao()">Voltar</button>
   </div>
 
   <!-- Popup Modal para Exibir o Resumo dos Dados -->
@@ -929,7 +1094,7 @@
       document.getElementById("summaryEstado").textContent = "Estado: " + document.getElementById("estado").value;
     }
     
-    // Atualizamos a função para utilizar window.getComputedStyle para verificar o display
+    // Utilizando window.getComputedStyle para verificar o display
     function toggleDetalhes() {
       const popup = document.getElementById('popupModal');
       const arrowIcon = document.getElementById('arrowIcon');
@@ -989,6 +1154,15 @@
     function voltarParaContratacao() {
       document.getElementById("pagamentoPixSection").style.display = "none";
       document.getElementById("checkoutSection").style.display = "block";
+    }
+    
+    /* ======= FUNÇÃO PARA COPIAR A CHAVE PIX ======= */
+    function copyPixKey() {
+      const pixKeyInput = document.getElementById('pixKeyInput');
+      pixKeyInput.select();
+      pixKeyInput.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      alert('Chave PIX copiada!');
     }
   </script>
 </body>
