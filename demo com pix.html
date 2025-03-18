@@ -544,7 +544,8 @@
                 e a <a href="https://drive.google.com/file/d/16UwKRPuFjZC-EYOQfC2caRbvEJuGmUYl/view" target="_blank">Política de privacidade</a>.
               </label>
             </div>
-            <button class="contratar" type="button" onclick="iniciarPagamentoPix()">Contratar</button>
+            <!-- Botão que chama a função genérica de pagamento -->
+            <button class="contratar" type="button" onclick="iniciarPagamento()">Contratar</button>
           </div>
           <!-- Aba semestral -->
           <div class="tab-content" id="tabPix">
@@ -574,7 +575,8 @@
                 e a <a href="https://drive.google.com/file/d/16UwKRPuFjZC-EYOQfC2caRbvEJuGmUYl/view" target="_blank">Política de privacidade</a>.
               </label>
             </div>
-            <button class="contratar" type="button" onclick="iniciarPagamentoPix()">Contratar</button>
+            <!-- Botão que chama a função genérica de pagamento -->
+            <button class="contratar" type="button" onclick="iniciarPagamento()">Contratar</button>
           </div>
         </div>
       </div>
@@ -817,6 +819,7 @@
     /* ======= FUNÇÕES DO CHECKOUT ======= */
     function updatePaymentSummary() {
       const basePrice = selectedPlanPrice;
+      // Verifica se a aba ativa é de recorrência ou semestral
       const isRecorrencia = document.getElementById('mensalBtn').classList.contains('active');
       let extrasSum = 0;
       document.querySelectorAll('.opcoes-container input[type="checkbox"]').forEach(chk => {
@@ -835,12 +838,11 @@
         let effectiveTotal = total;
         if(paymentMethod === "pix") {
           effectiveTotal = total * 0.9;
-          document.getElementById('planPriceSemestral').innerHTML = `
-            <div class="discount-container">
+          document.getElementById('planPriceSemestral').innerHTML = 
+            `<div class="discount-container">
               <span class="discount-new-price">R$ ${(effectiveTotal * 6).toFixed(2)}</span>
               <span class="discount-old-price">R$ ${(total * 6).toFixed(2)}</span>
-            </div>
-          `;
+            </div>`;
         } else {
           document.getElementById('planPriceSemestral').textContent = "R$ " + (effectiveTotal * 6).toFixed(2);
         }
@@ -967,9 +969,22 @@
     });
 
     /* ======= FUNÇÕES PARA PAGAMENTO PIX (Página 3) ======= */
-    function iniciarPagamentoPix() {
-      document.getElementById("checkoutSection").style.display = "none";
-      document.getElementById("pagamentoPixSection").style.display = "block";
+    // Função genérica que inicia o pagamento conforme o método selecionado
+    function iniciarPagamento() {
+      // Identifica a aba ativa (tab-content ativa)
+      const tabAtiva = document.querySelector('.tab-content.active');
+      // Busca o select dentro da aba ativa
+      const selectPagamento = tabAtiva.querySelector('select');
+      const metodoSelecionado = selectPagamento.value;
+      
+      // Verifica se o método de pagamento é PIX ou PIX recorrente
+      if (metodoSelecionado === "pix" || metodoSelecionado === "pix_recorrente") {
+        document.getElementById("checkoutSection").style.display = "none";
+        document.getElementById("pagamentoPixSection").style.display = "block";
+      } else {
+        // Aqui você pode tratar o fluxo para pagamento via cartão de crédito ou outro método
+        alert("Processando pagamento via Cartão de Crédito");
+      }
     }
     function voltarParaContratacao() {
       document.getElementById("pagamentoPixSection").style.display = "none";
