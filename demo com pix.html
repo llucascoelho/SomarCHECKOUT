@@ -1118,6 +1118,25 @@
         document.getElementById('totalSummary').innerHTML = document.getElementById('totalTextPix').innerHTML;
         document.getElementById('total6mesesSummary').innerHTML = document.getElementById('total6mesesPix').innerHTML;
       }
+
+      // Ajuste para exibir ou ocultar o parágrafo "Total 6 meses" de acordo com o método de pagamento selecionado
+      if(document.getElementById('mensalBtn').classList.contains('active')) {
+          // Aba Recorrência
+          let pmRecorrencia = document.getElementById("paymentMethodSelectRecorrencia").value;
+          if(pmRecorrencia === "pix_recorrente"){
+              document.getElementById("total6mesesSummary").style.display = "none";
+          } else {
+              document.getElementById("total6mesesSummary").style.display = "block";
+          }
+      } else {
+          // Aba Semestral
+          let pmSemestral = document.getElementById("paymentMethodSelectSemestral").value;
+          if(pmSemestral === "pix"){
+              document.getElementById("total6mesesSummary").style.display = "block";
+          } else {
+              document.getElementById("total6mesesSummary").style.display = "none";
+          }
+      }
     }
     
     document.getElementById("paymentMethodSelectRecorrencia").addEventListener("change", updatePaymentSummary);
