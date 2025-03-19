@@ -223,26 +223,6 @@
     }
     .contratar:hover { background: #3D2099; transform: translateY(-2px); }
     
-    /* ===================== Novo Estilo para exibição do preço com desconto ===================== */
-    .discount-container {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 10px;
-      background: #f1f1f1;
-      padding: 5px 10px;
-      border-radius: 5px;
-    }
-    .discount-old-price {
-      text-decoration: line-through;
-      color: #b0b0b0;
-      font-size: 1rem;
-    }
-    .discount-new-price {
-      color: #d32f2f;
-      font-size: 1.4rem;
-      font-weight: bold;
-    }
-    
     /* ===================== BOTÃO DE FORMA DE PAGAMENTO ===================== */
     .payment-methods {
       margin: 10px 0;
@@ -264,22 +244,24 @@
       cursor: pointer;
     }
     
-    @media (max-width: 768px) {
-      .content-row { flex-direction: column; }
-      .top-bar .info span:not(:first-child) { display: none; }
-      .top-bar { padding: 5px 15px; justify-content: space-between; }
-      .top-bar .info { text-align: left; flex: 1; }
-      .menu-right { width: 100%; margin-top: 20px; }
-      .tabs-container { flex-direction: column; }
+    /* ===================== NOVO ESTILO PARA EXIBIÇÃO DO VALOR COM DESCONTO (PIX) ===================== */
+    .discount-container {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      background: #f1f1f1;
+      padding: 5px 10px;
+      border-radius: 5px;
     }
-    @media (max-width: 480px) {
-      .logo-container img { max-width: 150px; }
-      .top-bar { padding: 5px 10px; }
-      .info { font-size: 0.9rem; text-align: left; }
-      .tab-button { padding: 8px; font-size: 0.9rem; }
-      .price-section h2 { font-size: 1.3rem; }
-      .pagamento h3 { font-size: 0.9rem; }
-      .pagamento p { font-size: 0.8rem; }
+    .discount-old-price {
+      text-decoration: line-through;
+      color: #b0b0b0;
+      font-size: 1rem;
+    }
+    .discount-new-price {
+      color: #d32f2f;
+      font-size: 1.4rem;
+      font-weight: bold;
     }
     
     /* ===================== ESTILOS DA PÁGINA PAGAMENTO PIX (ATUALIZADA) ===================== */
@@ -443,10 +425,10 @@
       text-align: center;
       margin-bottom: 20px;
     }
-    #pagamentoPixSection .summary-price h2 {
+    /* Bloco "Total 6 meses" no resumo de contratação – exibe apenas o valor final com desconto */
+    #pagamentoPixSection .summary-price h2#summaryTotalValue {
       font-size: 1.8rem;
       color: var(--primary);
-      margin: 0;
     }
     #pagamentoPixSection .summary-payment {
       border: 1px solid #eee;
@@ -483,6 +465,26 @@
       font-weight: 500;
       color: var(--primary);
       cursor: pointer;
+    }
+    
+    /* ===================== NOVO ESTILO PARA EXIBIÇÃO DO VALOR COM DESCONTO (PIX) ===================== */
+    .discount-container {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      background: #f1f1f1;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .discount-old-price {
+      text-decoration: line-through;
+      color: #b0b0b0;
+      font-size: 1rem;
+    }
+    .discount-new-price {
+      color: #d32f2f;
+      font-size: 1.4rem;
+      font-weight: bold;
     }
     
     @media (max-width: 768px) {
@@ -745,7 +747,7 @@
           </button>
         </div>
         <div id="paymentDetails">
-          <!-- Aba Recorrencia -->
+          <!-- Aba Recorrência -->
           <div class="tab-content active" id="tabMensal">
             <div class="price-section">
               <h3 id="planNameTitle">Plano Básico</h3>
@@ -774,11 +776,11 @@
             </div>
             <button class="contratar" type="button" onclick="iniciarPagamento()">Contratar</button>
           </div>
-          <!-- Aba semestral -->
+          <!-- Aba Semestral (PIX) -->
           <div class="tab-content" id="tabPix">
             <div class="price-section">
               <h3 id="planNameTitlePix">Plano Básico</h3>
-              <!-- Exibe o preço com desconto PIX utilizando o design do desconto -->
+              <!-- No menu de pagamento, exibe o desconto com o container -->
               <h2 id="planPriceSemestral">R$ 84,90</h2>
             </div>
             <div class="pagamento">
@@ -853,6 +855,7 @@
         <div class="summary">
           <h3>Resumo da contratação</h3>
           <div class="summary-price">
+            <!-- No resumo de contratação, exibe apenas o valor final com desconto -->
             <h2 id="summaryTotalValue">R$ 84,90</h2>
           </div>
           <div class="summary-payment">
@@ -860,38 +863,8 @@
             <p id="mensalidadeSummary">Mensalidade: R$ 0.00</p>
             <p id="extrasSummary">Extras: R$ 0.00</p>
             <p id="totalSummary">Total: R$ 0.00</p>
+            <p id="total6mesesSummary">Total 6 meses: R$ 0.00</p>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Popup Modal para Exibir o Resumo dos Dados -->
-  <div id="popupModal" class="modal hidden">
-    <div class="modal-content">
-      <span class="close" onclick="closePopup()">&times;</span>
-      <div id="summaryContent">
-        <div class="section">
-          <h3>Seus Dados</h3>
-          <p id="summaryNome"></p>
-          <p id="summaryDataNascimento"></p>
-          <p id="summaryCPF"></p>
-          <p id="summarySexo"></p>
-        </div>
-        <div class="section">
-          <h3>Dados para Contato</h3>
-          <p id="summaryEmail"></p>
-          <p id="summaryTelefone"></p>
-        </div>
-        <div class="section">
-          <h3>Endereço</h3>
-          <p id="summaryCEP"></p>
-          <p id="summaryLogradouro"></p>
-          <p id="summaryNumero"></p>
-          <p id="summaryComplemento"></p>
-          <p id="summaryBairro"></p>
-          <p id="summaryCidade"></p>
-          <p id="summaryEstado"></p>
         </div>
       </div>
     </div>
@@ -1092,23 +1065,22 @@
     /* ======= FUNÇÕES DO CHECKOUT ======= */
     function updatePaymentSummary() {
       const basePrice = selectedPlanPrice;
-      // Verifica se a aba ativa é de recorrência ou semestral
-      const isRecorrencia = document.getElementById('mensalBtn').classList.contains('active');
       let extrasSum = 0;
       document.querySelectorAll('.opcoes-container input[type="checkbox"]').forEach(chk => {
         if(chk.checked && !chk.disabled){ extrasSum += parseFloat(chk.getAttribute('data-cost')); }
       });
       let total = basePrice + extrasSum;
+      let effectiveTotal = total;
       
-      if(isRecorrencia) {
-        let effectiveTotal = total;
+      if(document.getElementById('mensalBtn').classList.contains('active')) {
+        // Aba Recorrência (mensal): sem desconto
         document.getElementById('planPrice').textContent = "R$ " + effectiveTotal.toFixed(2) + "/Mês";
         document.getElementById('mensalidadeText').textContent = "Mensalidade: R$ " + basePrice.toFixed(2);
         document.getElementById('extrasText').textContent = "Extras: R$ " + extrasSum.toFixed(2);
         document.getElementById('totalText').innerHTML = "<strong>Total: R$ " + effectiveTotal.toFixed(2) + "</strong>";
       } else {
+        // Aba Semestral (PIX): se o método for "pix", aplica desconto e exibe o desconto no menu de pagamento
         const paymentMethod = document.getElementById("paymentMethodSelectSemestral").value;
-        let effectiveTotal = total;
         if(paymentMethod === "pix") {
           effectiveTotal = total * 0.9;
           document.getElementById('planPriceSemestral').innerHTML = 
@@ -1127,17 +1099,24 @@
       document.getElementById('planNameTitle').textContent = "Plano " + selectedPlanName;
       document.getElementById('planNameTitlePix').textContent = "Plano " + selectedPlanName;
       
-      // Atualiza o menu de resumo da contratação com os mesmos valores do menu de pagamento
+      // Atualiza o menu de resumo da contratação para que os dados sejam os mesmos do menu de pagamento,
+      // exceto que, se PIX estiver selecionado, exibe apenas o valor final com desconto no bloco "Total 6 meses"
       if(document.getElementById('mensalBtn').classList.contains('active')) {
         document.getElementById('summaryTotalValue').textContent = document.getElementById('planPrice').textContent;
         document.getElementById('mensalidadeSummary').textContent = document.getElementById('mensalidadeText').textContent;
         document.getElementById('extrasSummary').textContent = document.getElementById('extrasText').textContent;
         document.getElementById('totalSummary').innerHTML = document.getElementById('totalText').innerHTML;
       } else {
-        document.getElementById('summaryTotalValue').textContent = document.getElementById('planPriceSemestral').textContent;
+        if(document.getElementById("paymentMethodSelectSemestral").value === "pix") {
+          // No resumo de contratação, exibe apenas o valor com desconto para 6 meses (sem o container de desconto)
+          document.getElementById('summaryTotalValue').textContent = "R$ " + (effectiveTotal * 6).toFixed(2);
+        } else {
+          document.getElementById('summaryTotalValue').textContent = document.getElementById('planPriceSemestral').textContent;
+        }
         document.getElementById('mensalidadeSummary').textContent = document.getElementById('valorPlanoText').textContent;
         document.getElementById('extrasSummary').textContent = document.getElementById('extrasTextPix').textContent;
         document.getElementById('totalSummary').innerHTML = document.getElementById('totalTextPix').innerHTML;
+        document.getElementById('total6mesesSummary').innerHTML = document.getElementById('total6mesesPix').innerHTML;
       }
     }
     
@@ -1214,7 +1193,6 @@
       document.getElementById("summaryCidade").textContent = "Cidade: " + document.getElementById("cidade").value;
       document.getElementById("summaryEstado").textContent = "Estado: " + document.getElementById("estado").value;
     }
-    
     function toggleDetalhes() {
       const popup = document.getElementById('popupModal');
       const arrowIcon = document.getElementById('arrowIcon');
@@ -1229,7 +1207,6 @@
         arrowIcon.classList.add('open');
       }
     }
-    
     function closePopup() {
       const popup = document.getElementById('popupModal');
       popup.style.display = 'none';
@@ -1316,5 +1293,36 @@
       });
     })();
   </script>
+  
+  <!-- Popup Modal para Exibir o Resumo dos Dados -->
+  <div id="popupModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <div id="summaryContent">
+        <div class="section">
+          <h3>Seus Dados</h3>
+          <p id="summaryNome"></p>
+          <p id="summaryDataNascimento"></p>
+          <p id="summaryCPF"></p>
+          <p id="summarySexo"></p>
+        </div>
+        <div class="section">
+          <h3>Dados para Contato</h3>
+          <p id="summaryEmail"></p>
+          <p id="summaryTelefone"></p>
+        </div>
+        <div class="section">
+          <h3>Endereço</h3>
+          <p id="summaryCEP"></p>
+          <p id="summaryLogradouro"></p>
+          <p id="summaryNumero"></p>
+          <p id="summaryComplemento"></p>
+          <p id="summaryBairro"></p>
+          <p id="summaryCidade"></p>
+          <p id="summaryEstado"></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
