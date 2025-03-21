@@ -145,7 +145,7 @@
       width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);
     }
     .modal-content {
-      background: #fff; margin: 10% auto; padding: 20px; border-radius: 8px;
+      background: #fff; margin: 4% auto; padding: 20px; border-radius: 8px;
       width: 90%; max-width: 500px; position: relative;
     }
     .close {
@@ -275,16 +275,49 @@
     }
     @media (max-width: 480px) {
       .logo-container img { max-width: 150px; }
-      .top-bar { padding: 5px 10px; }
-      .info { font-size: 0.9rem; text-align: left; }
       .tab-button { padding: 8px; font-size: 0.9rem; }
       .price-section h2 { font-size: 1.3rem; }
       .pagamento h3 { font-size: 0.9rem; }
       .pagamento p { font-size: 0.8rem; }
+      
+      /* Organiza os campos do cartão em coluna */
+      #pagamentoCartaoSection .form-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      /* Demais ajustes para os inputs do cartão */
+      #pagamentoCartaoSection .form-group label {
+        font-size: 0.9rem;
+      }
+      #pagamentoCartaoSection .form-group input {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+      #pagamentoCartaoSection .contratar {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+      #pagamentoCartaoSection .summary {
+        padding: 15px;
+      }
+      #pagamentoCartaoSection .summary h3 {
+        font-size: 1.2rem;
+      }
+      #pagamentoCartaoSection .summary-item {
+        font-size: 0.85rem;
+      }
+      #pagamentoCartaoSection .summary-total-label {
+        font-size: 1.1rem;
+      }
+      #pagamentoCartaoSection .summary-total-value {
+        font-size: 1.3rem;
+      }
+      /* Mantém a barra de informações com o mesmo padrão da Página 3 */
+      /* Não alteramos o layout da .top-bar ou .info para a versão mobile nesta seção */
     }
     
     /* ===================== ESTILOS DA PÁGINA 4: PAGAMENTO CARTÃO (Isolado) ===================== */
-    /* [Os estilos da Página 4 foram encapsulados com o seletor #pagamentoCartaoSection para evitar conflitos] */
     #pagamentoCartaoSection {
       display: none;
     }
@@ -318,16 +351,17 @@
       margin-bottom: 20px;
       transition: box-shadow 0.3s;
     }
-    #pagamentoCartaoSection .person-icon {
-      width: 32px;
-      height: 32px;
-    }
+    /* A barra de informações segue o mesmo padrão da Página 3 */
     #pagamentoCartaoSection .info {
       display: flex;
       gap: 15px;
       flex: 1;
       font-size: 1rem;
       flex-wrap: wrap;
+    }
+    /* Remove o negrito do campo "Nome" na barra de informações */
+    #pagamentoCartaoSection .info #topNameCartao {
+      font-weight: normal;
     }
     #pagamentoCartaoSection .arrow-down {
       width: 24px;
@@ -380,11 +414,7 @@
     }
     #pagamentoCartaoSection .form-row {
       display: flex;
-      gap: 20px;
-    }
-    #pagamentoCartaoSection .form-row .form-group {
-      flex: 1;
-      margin-bottom: 0;
+      gap: 0px;
     }
     #pagamentoCartaoSection .contratar {
       width: 100%;
@@ -404,7 +434,7 @@
       transform: translateY(-2px);
     }
     #pagamentoCartaoSection .summary {
-      width: 350px;
+      width: 355px;
       min-width: 280px;
       background: #f9f9f9;
       border: 1px solid #ddd;
@@ -456,7 +486,8 @@
       font-weight: 700;
       color: var(--primary);
     }
-    /* Modal para Pagamento Cartão (IDs renomeados para evitar conflito) */
+    
+    /* MODAL PARA PAGAMENTO CARTÃO (SOMENTE LEITURA) */
     #popupModalCartao {
       display: none;
       position: fixed;
@@ -470,7 +501,7 @@
     }
     #popupModalCartao .modal-content {
       background-color: #fff;
-      margin: 15% auto;
+      margin: 4% auto;
       padding: 20px;
       border-radius: 8px;
       width: 80%;
@@ -489,39 +520,28 @@
     #popupModalCartao .close:hover {
       color: #000;
     }
-    #popupModalCartao form {
-      display: grid;
-      gap: 15px;
-    }
-    #popupModalCartao form .section {
+    /* Estrutura somente leitura para exibição dos dados */
+    #summaryContentCartao .section {
       border-top: 1px solid #ddd;
       padding-top: 15px;
+      margin-top: 15px;
     }
-    #popupModalCartao form .section:first-of-type {
+    #summaryContentCartao .section:first-of-type {
       border-top: none;
       padding-top: 0;
+      margin-top: 0;
     }
-    #popupModalCartao form h3 {
+    #summaryContentCartao h3 {
       margin-bottom: 10px;
       color: var(--primary);
     }
-    #popupModalCartao form .form-group {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 10px;
-    }
-    #popupModalCartao form label {
-      margin-bottom: 4px;
-      font-weight: 500;
-    }
-    #popupModalCartao form input,
-    #popupModalCartao form select {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+    #summaryContentCartao p {
+      font-size: 0.95rem;
+      color: #333;
+      margin-bottom: 8px;
     }
     
-    /* ===================== ESTILOS DA PÁGINA PAGAMENTO PIX (ORIGINAL) ===================== */
+    /* ===================== ESTILOS DA PÁGINA PAGAMENTO PIX (Original) ===================== */
     #pagamentoPixSection .container {
       /* Utiliza a classe container padrão */
     }
@@ -545,7 +565,6 @@
       font-size: 1rem;
       flex-wrap: wrap;
     }
-    /* Removendo negrito do primeiro item (Nome) na barra de informações */
     #pagamentoPixSection .info span:first-child {
       font-weight: normal;
     }
@@ -622,7 +641,7 @@
       font-weight: 500;
     }
     #pagamentoPixSection .qr-code-container {
-      flex-shrink: 0;
+      width: auto;
     }
     #pagamentoPixSection .qr-code-container img {
       width: 180px;
@@ -663,7 +682,7 @@
       transform: translateY(-2px);
     }
     #pagamentoPixSection .summary {
-      width: 350px;
+      width: 355px;
       min-width: 280px;
       background: #fff;
       border: 1px solid #ccc;
@@ -699,6 +718,18 @@
     #pagamentoPixSection .summary-payment p {
       font-size: 0.95rem;
       margin-bottom: 8px;
+    }
+    
+    /* ===================== NOVA MEDIA QUERY PARA MOBILE (Página 3) ===================== */
+    @media only screen and (max-width: 480px) {
+      /* Empilha verticalmente os itens dentro de .pix-flex */
+      #pagamentoPixSection .pix-flex {
+        flex-direction: column;
+      }
+      /* Alinha ao centro o QR Code */
+      #pagamentoPixSection .qr-code-container {
+        margin: 0 auto;
+      }
     }
   </style>
 </head>
@@ -1075,11 +1106,12 @@
       <div class="top-bar">
         <img src="https://img.icons8.com/ios/50/99D1F2/user--v1.png" alt="Ícone de Pessoa" class="person-icon">
         <div class="info">
-          <span id="topNameCartao">Nome: Lucas</span>
-          <span>Seu Plano: Básico</span>
+          <span id="topNameCartao" style="font-weight: normal;">Nome: Lucas</span>
+          <span id="topPlanoCartao">Seu Plano: Básico</span>
           <span id="topTelefoneCartao">Telefone: 51999562099</span>
           <span id="topEmailCartao">Email: lucas@exemplo.com</span>
         </div>
+        <!-- O ícone abaixo deverá chamar a função para exibir o modal somente leitura -->
         <img src="https://img.icons8.com/ios-filled/50/ffffff/chevron-down.png" 
              alt="Seta para baixo" 
              class="arrow-down" 
@@ -1135,73 +1167,38 @@
         </div>
       </div>
     </div>
+    <!-- Modal somente leitura para exibição dos dados (Substituído o formulário com inputs) -->
     <div id="popupModalCartao" class="modal hidden">
       <div class="modal-content">
         <span class="close" onclick="closePopupCartao()">&times;</span>
-        <form id="dadosFormCartao">
+        <div id="summaryContentCartao">
           <div class="section">
             <h3>Seus Dados</h3>
-            <div class="form-group">
-              <label for="nomeCartao">Nome:</label>
-              <input type="text" id="nomeCartao" name="nomeCartao" placeholder="Digite seu nome">
-            </div>
-            <div class="form-group">
-              <label for="dataNascimentoCartao">Data de Nascimento:</label>
-              <input type="date" id="dataNascimentoCartao" name="dataNascimentoCartao">
-            </div>
-            <div class="form-group">
-              <label for="cpfCartao">CPF:</label>
-              <input type="text" id="cpfCartao" name="cpfCartao" placeholder="Digite seu CPF">
-            </div>
-            <div class="form-group">
-              <label for="sexoCartao">Sexo:</label>
-              <select id="sexoCartao" name="sexoCartao">
-                <option value="">Selecione</option>
-                <option value="masculino">Masculino</option>
-                <option value="feminino">Feminino</option>
-                <option value="outro">Outro</option>
-              </select>
-            </div>
+            <p id="summaryNomeCartao"></p>
+            <p id="summaryDataNascimentoCartao"></p>
+            <p id="summaryCPFCartao"></p>
+            <p id="summarySexoCartao"></p>
           </div>
           <div class="section">
-            <h3>Contato</h3>
-            <div class="form-group">
-              <label for="emailCartao">Email:</label>
-              <input type="email" id="emailCartao" name="emailCartao" placeholder="Digite seu email">
-            </div>
-            <div class="form-group">
-              <label for="telefoneCartao">Telefone:</label>
-              <input type="tel" id="telefoneCartao" name="telefoneCartao" placeholder="Digite seu telefone">
-            </div>
+            <h3>Dados para Contato</h3>
+            <p id="summaryEmailCartao"></p>
+            <p id="summaryTelefoneCartao"></p>
           </div>
           <div class="section">
             <h3>Endereço</h3>
-            <div class="form-group">
-              <label for="logradouroCartao">Logradouro com Número:</label>
-              <input type="text" id="logradouroCartao" name="logradouroCartao" placeholder="Rua, número">
-            </div>
-            <div class="form-group">
-              <label for="bairroCartao">Bairro:</label>
-              <input type="text" id="bairroCartao" name="bairroCartao" placeholder="Digite seu bairro">
-            </div>
-            <div class="form-group">
-              <label for="cidadeCartao">Cidade:</label>
-              <input type="text" id="cidadeCartao" name="cidadeCartao" placeholder="Digite sua cidade">
-            </div>
-            <div class="form-group">
-              <label for="estadoCartao">Estado:</label>
-              <input type="text" id="estadoCartao" name="estadoCartao" placeholder="Digite seu estado">
-            </div>
-            <div class="form-group">
-              <label for="cepCartao">CEP:</label>
-              <input type="text" id="cepCartao" name="cepCartao" placeholder="Digite seu CEP">
-            </div>
+            <p id="summaryCEPCartao"></p>
+            <p id="summaryLogradouroCartao"></p>
+            <p id="summaryNumeroCartao"></p>
+            <p id="summaryComplementoCartao"></p>
+            <p id="summaryBairroCartao"></p>
+            <p id="summaryCidadeCartao"></p>
+            <p id="summaryEstadoCartao"></p>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
-
+  
   <script>
     /* ======= VARIÁVEIS GLOBAIS PARA OS PLANOS ======= */
     let selectedPlanPrice = 84.90; // valor padrão
@@ -1564,6 +1561,7 @@
       this.setCustomValidity((fullName !== "" && fullName.split(/\s+/).length < 2) ? "Inserir nome e sobrenome" : "");
     });
 
+    /* ======= FUNÇÕES PARA PAGAMENTO PIX (Página 3) ======= */
     function iniciarPagamento() {
       const tabAtiva = document.querySelector('.tab-content.active');
       const selectPagamento = tabAtiva.querySelector('select');
@@ -1573,6 +1571,11 @@
         document.getElementById("checkoutSection").style.display = "none";
         document.getElementById("pagamentoPixSection").style.display = "block";
       } else if (metodoSelecionado === "credito") {
+        // Atualiza os dados da barra da Página 4 com os mesmos do checkout
+        document.getElementById("topNameCartao").textContent = document.getElementById("topName").textContent;
+        document.getElementById("topPlanoCartao").textContent = document.getElementById("topPlano").textContent;
+        document.getElementById("topTelefoneCartao").textContent = document.getElementById("topTelefone").textContent;
+        document.getElementById("topEmailCartao").textContent = document.getElementById("topEmail").textContent;
         document.getElementById("checkoutSection").style.display = "none";
         document.getElementById("pagamentoCartaoSection").style.display = "block";
       }
@@ -1588,6 +1591,64 @@
       pixKeyInput.setSelectionRange(0, 99999);
       document.execCommand('copy');
       alert('Chave PIX copiada!');
+    }
+    
+    /* ======= FUNÇÕES PARA MODAL DO CARTÃO (SOMENTE LEITURA) ======= */
+    function updateSummaryCartao() {
+      document.getElementById("summaryNomeCartao").textContent = "Nome: " + document.getElementById("nome").value;
+      document.getElementById("summaryDataNascimentoCartao").textContent = "Data de Nascimento: " + document.getElementById("dataNascimento").value;
+      document.getElementById("summaryCPFCartao").textContent = "CPF: " + document.getElementById("cpf").value;
+      document.getElementById("summarySexoCartao").textContent = "Sexo: " + document.getElementById("sexo").value;
+      document.getElementById("summaryEmailCartao").textContent = "Email: " + document.getElementById("email").value;
+      document.getElementById("summaryTelefoneCartao").textContent = "Telefone: " + document.getElementById("telefone").value;
+      document.getElementById("summaryCEPCartao").textContent = "CEP: " + document.getElementById("cep").value;
+      document.getElementById("summaryLogradouroCartao").textContent = "Logradouro: " + document.getElementById("logradouro").value;
+      document.getElementById("summaryNumeroCartao").textContent = "Número: " + document.getElementById("numeroEndereco").value;
+      document.getElementById("summaryComplementoCartao").textContent = "Complemento: " + document.getElementById("complemento").value;
+      document.getElementById("summaryBairroCartao").textContent = "Bairro: " + document.getElementById("bairro").value;
+      document.getElementById("summaryCidadeCartao").textContent = "Cidade: " + document.getElementById("cidade").value;
+      document.getElementById("summaryEstadoCartao").textContent = "Estado: " + document.getElementById("estado").value;
+    }
+    function toggleDetalhesCartao() {
+      const popup = document.getElementById('popupModalCartao');
+      const arrowIcon = document.getElementById('arrowIconCartao');
+      if (popup.style.display === 'block') {
+        popup.style.display = 'none';
+        popup.classList.add('hidden');
+        arrowIcon.classList.remove('open');
+      } else {
+        updateSummaryCartao();
+        popup.style.display = 'block';
+        popup.classList.remove('hidden');
+        arrowIcon.classList.add('open');
+      }
+    }
+    function closePopupCartao() {
+      const popup = document.getElementById('popupModalCartao');
+      popup.style.display = 'none';
+      popup.classList.add('hidden');
+      document.getElementById('arrowIconCartao').classList.remove('open');
+    }
+    
+    function formatCardNumber(input) {
+      let value = input.value.replace(/\D/g, '');
+      value = value.substring(0, 16);
+      let formattedValue = '';
+      for (let i = 0; i < value.length; i += 4) {
+        if (formattedValue !== '') {
+          formattedValue += ' ';
+        }
+        formattedValue += value.substring(i, i + 4);
+      }
+      input.value = formattedValue;
+    }
+    
+    function formatExpDate(input) {
+      let value = input.value.replace(/\D/g, '');
+      if (value.length > 2) {
+        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+      }
+      input.value = value;
     }
   </script>
   
@@ -1649,49 +1710,5 @@
       </div>
     </div>
   </div>
-  
-  <script>
-    function toggleDetalhesCartao() {
-      const popup = document.getElementById('popupModalCartao');
-      const arrowIcon = document.getElementById('arrowIconCartao');
-      if (popup.style.display === 'block') {
-        popup.style.display = 'none';
-        popup.classList.add('hidden');
-        arrowIcon.classList.remove('open');
-      } else {
-        popup.style.display = 'block';
-        popup.classList.remove('hidden');
-        arrowIcon.classList.add('open');
-      }
-    }
-    
-    function closePopupCartao() {
-      const popup = document.getElementById('popupModalCartao');
-      popup.style.display = 'none';
-      popup.classList.add('hidden');
-      document.getElementById('arrowIconCartao').classList.remove('open');
-    }
-    
-    function formatCardNumber(input) {
-      let value = input.value.replace(/\D/g, '');
-      value = value.substring(0, 16);
-      let formattedValue = '';
-      for (let i = 0; i < value.length; i += 4) {
-        if (formattedValue !== '') {
-          formattedValue += ' ';
-        }
-        formattedValue += value.substring(i, i + 4);
-      }
-      input.value = formattedValue;
-    }
-    
-    function formatExpDate(input) {
-      let value = input.value.replace(/\D/g, '');
-      if (value.length > 2) {
-        value = value.slice(0, 2) + '/' + value.slice(2, 4);
-      }
-      input.value = value;
-    }
-  </script>
 </body>
 </html>
