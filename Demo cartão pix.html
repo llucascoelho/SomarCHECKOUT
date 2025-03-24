@@ -139,7 +139,6 @@
     @media (min-width: 481px) {
       .mobile-edit-btn-container { display: none; }
     }
-    
     .modal {
       display: none; position: fixed; z-index: 1000; left: 0; top: 0;
       width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);
@@ -182,7 +181,7 @@
       width: 320px; background: #fff; border: 1px solid #ccc; border-radius: 8px;
       padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    /* Tabs para alternar entre Recorrência e semestral/PIX */
+    /* Tabs para alternar entre Recorrência e Semestral/PIX */
     .tabs-container {
       display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
@@ -244,7 +243,6 @@
       color: var(--primary);
       cursor: pointer;
     }
-    
     /* ===================== NOVO ESTILO PARA EXIBIÇÃO DO VALOR COM DESCONTO (PIX) ===================== */
     .discount-container {
       display: inline-flex;
@@ -264,7 +262,6 @@
       font-size: 1.4rem;
       font-weight: bold;
     }
-    
     @media (max-width: 768px) {
       .content-row { flex-direction: column; }
       .top-bar .info span:not(:first-child) { display: none; }
@@ -279,14 +276,10 @@
       .price-section h2 { font-size: 1.3rem; }
       .pagamento h3 { font-size: 0.9rem; }
       .pagamento p { font-size: 0.8rem; }
-      
-      /* Organiza os campos do cartão em coluna */
       #pagamentoCartaoSection .form-row {
         flex-direction: column;
         gap: 10px;
       }
-      
-      /* Demais ajustes para os inputs do cartão */
       #pagamentoCartaoSection .form-group label {
         font-size: 0.9rem;
       }
@@ -304,19 +297,7 @@
       #pagamentoCartaoSection .summary h3 {
         font-size: 1.2rem;
       }
-      #pagamentoCartaoSection .summary-item {
-        font-size: 0.85rem;
-      }
-      #pagamentoCartaoSection .summary-total-label {
-        font-size: 1.1rem;
-      }
-      #pagamentoCartaoSection .summary-total-value {
-        font-size: 1.3rem;
-      }
-      /* Mantém a barra de informações com o mesmo padrão da Página 3 */
-      /* Não alteramos o layout da .top-bar ou .info para a versão mobile nesta seção */
     }
-    
     /* ===================== ESTILOS DA PÁGINA 4: PAGAMENTO CARTÃO (Isolado) ===================== */
     #pagamentoCartaoSection {
       display: none;
@@ -351,17 +332,21 @@
       margin-bottom: 20px;
       transition: box-shadow 0.3s;
     }
-    /* A barra de informações segue o mesmo padrão da Página 3 */
-    #pagamentoCartaoSection .info {
+    /* Alteração: Reordenando os dados na barra de informações (Página 4) */
+    #pagamentoCartaoSection .top-bar .info {
       display: flex;
       gap: 15px;
       flex: 1;
       font-size: 1rem;
       flex-wrap: wrap;
     }
-    /* Remove o negrito do campo "Nome" na barra de informações */
-    #pagamentoCartaoSection .info #topNameCartao {
-      font-weight: normal;
+    /* Ordem: plano, nome, telefone, email */
+    #pagamentoCartaoSection .top-bar .info span {
+      margin-right: 10px;
+    }
+    /* Reordenado: primeiro exibe o plano, depois o nome, telefone e email */
+    #pagamentoCartaoSection .info {
+      flex-direction: row;
     }
     #pagamentoCartaoSection .arrow-down {
       width: 24px;
@@ -394,7 +379,7 @@
       color: var(--primary-dark);
     }
     #pagamentoCartaoSection .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 5px;
       display: flex;
       flex-direction: column;
     }
@@ -433,6 +418,7 @@
       background: #3D2099;
       transform: translateY(-2px);
     }
+    /* ----- RESUMO DA CONTRATAÇÃO NA PÁGINA 4 ----- */
     #pagamentoCartaoSection .summary {
       width: 355px;
       min-width: 280px;
@@ -441,8 +427,6 @@
       border-radius: 8px;
       padding: 20px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
     }
     #pagamentoCartaoSection .summary h3 {
       font-size: 1.3rem;
@@ -450,44 +434,32 @@
       color: var(--primary-dark);
       text-align: center;
     }
-    #pagamentoCartaoSection .summary-items {
-      flex: 1;
+    #pagamentoCartaoSection .summary-price {
+      text-align: center;
+      margin-bottom: 20px;
     }
-    #pagamentoCartaoSection .summary-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 0.95rem;
-      padding: 5px 0;
-      border-bottom: 1px solid #eee;
-    }
-    #pagamentoCartaoSection .summary-item:last-of-type {
-      border-bottom: none;
-    }
-    #pagamentoCartaoSection .summary-total {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #e9f7fd;
-      border-radius: 6px;
-      border: 1px solid #ddd;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-top: auto;
-    }
-    #pagamentoCartaoSection .summary-total-label {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--primary-dark);
-    }
-    #pagamentoCartaoSection .summary-total-value {
-      font-size: 1.5rem;
-      font-weight: 700;
+    #pagamentoCartaoSection .summary-price h2 {
+      font-size: 1.8rem;
       color: var(--primary);
     }
-    
-    /* MODAL PARA PAGAMENTO CARTÃO (SOMENTE LEITURA) */
+    #pagamentoCartaoSection .summary-payment {
+      /* Exibindo os itens: mensalidade, extras, total e total 6 meses */
+    }
+    #pagamentoCartaoSection .summary-payment h4 {
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    #pagamentoCartaoSection .summary-payment p {
+      font-size: 0.95rem;
+      margin-bottom: 5px;
+    }
+    /* Novo elemento para exibir Total 6 meses (apenas na aba semestral) */
+    #total6mesesSummaryCartao {
+      display: none;
+      font-size: 0.95rem;
+    }
+    /* ----- MODAL DO CARTÃO (SOMENTE LEITURA) ----- */
     #popupModalCartao {
       display: none;
       position: fixed;
@@ -520,7 +492,6 @@
     #popupModalCartao .close:hover {
       color: #000;
     }
-    /* Estrutura somente leitura para exibição dos dados */
     #summaryContentCartao .section {
       border-top: 1px solid #ddd;
       padding-top: 15px;
@@ -540,11 +511,8 @@
       color: #333;
       margin-bottom: 8px;
     }
-    
     /* ===================== ESTILOS DA PÁGINA PAGAMENTO PIX (Original) ===================== */
-    #pagamentoPixSection .container {
-      /* Utiliza a classe container padrão */
-    }
+    #pagamentoPixSection .container { }
     #pagamentoPixSection .top-bar {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: #fff;
@@ -558,6 +526,7 @@
       transition: box-shadow 0.3s;
     }
     #pagamentoPixSection .person-icon { width: 32px; height: 32px; }
+    /* Alteração na barra de informações da Página 3: novos IDs para atualizar na ordem: plano, nome, telefone, email */
     #pagamentoPixSection .info {
       display: flex;
       gap: 15px;
@@ -565,9 +534,18 @@
       font-size: 1rem;
       flex-wrap: wrap;
     }
-    #pagamentoPixSection .info span:first-child {
-      font-weight: normal;
+    /* Ordem desejada: primeiro exibe o plano, depois nome, telefone e email */
+    #pagamentoPixSection .info span {
+      margin-right: 10px;
     }
+    <!-- As alterações ocorrem abaixo -->
+    <div class="info">
+      <span id="topPlanoPix">Plano: Básico</span>
+      <span id="topNamePix">Nome: Lucas</span>
+      <span id="topTelefonePix">Telefone: 51999562099</span>
+      <span id="topEmailPix">Email: lucas@exemplo.com</span>
+    </div>
+    <!-- Fim da alteração na barra de informações da Página 3 -->
     #pagamentoPixSection .arrow-down {
       width: 24px;
       height: 24px;
@@ -640,9 +618,7 @@
       justify-content: center;
       font-weight: 500;
     }
-    #pagamentoPixSection .qr-code-container {
-      width: auto;
-    }
+    #pagamentoPixSection .qr-code-container { width: auto; }
     #pagamentoPixSection .qr-code-container img {
       width: 180px;
       height: 180px;
@@ -718,18 +694,6 @@
     #pagamentoPixSection .summary-payment p {
       font-size: 0.95rem;
       margin-bottom: 8px;
-    }
-    
-    /* ===================== NOVA MEDIA QUERY PARA MOBILE (Página 3) ===================== */
-    @media only screen and (max-width: 480px) {
-      /* Empilha verticalmente os itens dentro de .pix-flex */
-      #pagamentoPixSection .pix-flex {
-        flex-direction: column;
-      }
-      /* Alinha ao centro o QR Code */
-      #pagamentoPixSection .qr-code-container {
-        margin: 0 auto;
-      }
     }
   </style>
 </head>
@@ -967,10 +931,10 @@
       <div class="menu-right">
         <div class="tabs-container">
           <button id="mensalBtn" class="tab-button active" onclick="setTab('mensal'); updatePaymentSummary();">
-            <img id="mensalIcon" src="https://img.icons8.com/ios-filled/50/ffffff/bank-cards.png" alt="Recorrencia">Recorrencia
+            <img id="mensalIcon" src="https://img.icons8.com/ios-filled/50/ffffff/bank-cards.png" alt="Recorrência">Recorrência
           </button>
           <button id="pixBtn" class="tab-button" onclick="setTab('pix'); updatePaymentSummary();">
-            <img id="pixIcon" src="https://img.icons8.com/ios-filled/50/000000/money-bag.png" alt="semestral">semestral
+            <img id="pixIcon" src="https://img.icons8.com/ios-filled/50/000000/money-bag.png" alt="Semestral">Semestral
           </button>
         </div>
         <div id="paymentDetails">
@@ -1038,7 +1002,7 @@
     </div>
   </div>
 
-  <!-- Página 3: Pagamento Pix (restaurada conforme código original) -->
+  <!-- Página 3: Pagamento Pix -->
   <div id="pagamentoPixSection" style="display:none;">
     <div class="container">
       <div class="logo-container">
@@ -1047,10 +1011,11 @@
       <div class="top-bar">
         <img src="https://img.icons8.com/ios/50/99D1F2/user--v1.png" alt="Ícone de Pessoa" class="person-icon">
         <div class="info">
-          <span id="topName">Nome: Lucas</span>
-          <span>Seu Plano: Básico</span>
-          <span id="topTelefone">Telefone: 51999562099</span>
-          <span id="topEmail">Email: lucas@exemplo.com</span>
+          <!-- A barra de informações atualizada na ordem: plano, nome, telefone, email -->
+          <span id="topPlanoPix">Plano: Básico</span>
+          <span id="topNamePix">Nome: Lucas</span>
+          <span id="topTelefonePix">Telefone: 51999562099</span>
+          <span id="topEmailPix">Email: lucas@exemplo.com</span>
         </div>
         <img src="https://img.icons8.com/ios-filled/50/ffffff/chevron-down.png" 
              alt="Seta para baixo" 
@@ -1083,21 +1048,21 @@
         <div class="summary">
           <h3>Resumo da contratação</h3>
           <div class="summary-price">
-            <h2 id="summaryTotalValue">R$ 84,90</h2>
+            <h2 id="summaryTotalValue">R$ 0.00</h2>
           </div>
           <div class="summary-payment">
             <h4>Pagamento</h4>
             <p id="mensalidadeSummary">Mensalidade: R$ 0.00</p>
             <p id="extrasSummary">Extras: R$ 0.00</p>
-            <p id="totalSummary">Total: R$ 0.00</p>
-            <p id="total6mesesSummary">Total 6 meses: R$ 0.00</p>
+            <p id="totalSummary"><strong>Total: R$ 0.00</strong></p>
+            <p id="total6mesesSummary"><strong>Total 6 meses: R$ 0.00</strong></p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Página 4: Pagamento Cartão (aparece se for selecionado "Cartão de crédito") -->
+  <!-- Página 4: Pagamento Cartão (Recorrência) -->
   <div id="pagamentoCartaoSection">
     <div class="container">
       <div class="logo-container">
@@ -1105,13 +1070,13 @@
       </div>
       <div class="top-bar">
         <img src="https://img.icons8.com/ios/50/99D1F2/user--v1.png" alt="Ícone de Pessoa" class="person-icon">
+        <!-- Alteração: Reordenando os dados para: plano, nome, telefone e email -->
         <div class="info">
-          <span id="topNameCartao" style="font-weight: normal;">Nome: Lucas</span>
           <span id="topPlanoCartao">Seu Plano: Básico</span>
+          <span id="topNameCartao" style="font-weight: normal;">Nome: Lucas</span>
           <span id="topTelefoneCartao">Telefone: 51999562099</span>
           <span id="topEmailCartao">Email: lucas@exemplo.com</span>
         </div>
-        <!-- O ícone abaixo deverá chamar a função para exibir o modal somente leitura -->
         <img src="https://img.icons8.com/ios-filled/50/ffffff/chevron-down.png" 
              alt="Seta para baixo" 
              class="arrow-down" 
@@ -1130,7 +1095,7 @@
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="validade-cartao">Data de expiração (MM/AA)</label>
+              <label for="validade-cartao">Data de expiração</label>
               <input type="text" id="validade-cartao" placeholder="MM/AA" maxlength="5" pattern="(0[1-9]|1[0-2])\/\d{2}" oninput="formatExpDate(this)" />
             </div>
             <div class="form-group">
@@ -1144,30 +1109,24 @@
           </div>
           <button class="contratar">Finalizar</button>
         </div>
+        <!-- Resumo da contratação da Página 4 (IDs com sufixo "Cartao") -->
         <div class="summary">
           <h3>Resumo da contratação</h3>
-          <div class="summary-items">
-            <div class="summary-item">
-              <span>Plano: (nome)</span>
-              <span>R$ 0,00</span>
-            </div>
-            <div class="summary-item">
-              <span>Serviço extras</span>
-              <span>R$ 0,00</span>
-            </div>
-            <div class="summary-item">
-              <span>Assinatura mensal</span>
-              <span>R$ 84,90</span>
-            </div>
+          <div class="summary-price">
+            <h2 id="summaryTotalValueCartao">R$ 84,90</h2>
           </div>
-          <div class="summary-total">
-            <div class="summary-total-label">Total:</div>
-            <div class="summary-total-value">R$ 384,80</div>
+          <div class="summary-payment">
+            <h4>Pagamento</h4>
+            <p id="mensalidadeSummaryCartao">Mensalidade: R$ 84,90</p>
+            <p id="extrasSummaryCartao">Extras: R$ 0,00</p>
+            <p id="totalSummaryCartao"><strong>Total: R$ 84,90</strong></p>
+            <!-- Novo elemento para exibir Total 6 meses (apenas na aba semestral) -->
+            <p id="total6mesesSummaryCartao" style="display: none;"><strong>Total 6 meses: R$ 0.00</strong></p>
           </div>
         </div>
       </div>
     </div>
-    <!-- Modal somente leitura para exibição dos dados (Substituído o formulário com inputs) -->
+    <!-- Modal para exibição dos dados do Cartão (somente leitura) -->
     <div id="popupModalCartao" class="modal hidden">
       <div class="modal-content">
         <span class="close" onclick="closePopupCartao()">&times;</span>
@@ -1382,6 +1341,7 @@
         .catch(error => { cepMessage.style.display = 'none'; alert('Erro ao buscar CEP.'); console.error(error); });
     }
 
+    /* ======= FUNÇÃO CENTRALIZADA PARA ATUALIZAR O RESUMO DE CONTRATAÇÃO ======= */
     function updatePaymentSummary() {
       const basePrice = selectedPlanPrice;
       let extrasSum = 0;
@@ -1391,14 +1351,25 @@
       let total = basePrice + extrasSum;
       let effectiveTotal = total;
       
+      // Se a aba Recorrência (mensal) estiver ativa
       if(document.getElementById('mensalBtn').classList.contains('active')) {
         document.getElementById('planPrice').textContent = "R$ " + effectiveTotal.toFixed(2) + "/Mês";
         document.getElementById('mensalidadeText').textContent = "Mensalidade: R$ " + basePrice.toFixed(2);
         document.getElementById('extrasText').textContent = "Extras: R$ " + extrasSum.toFixed(2);
         document.getElementById('totalText').innerHTML = "<strong>Total: R$ " + effectiveTotal.toFixed(2) + "</strong>";
+        document.getElementById('planNameTitle').textContent = "Plano " + selectedPlanName;
+        
+        // Atualiza o resumo da Página 3 (Recorrência)
+        document.getElementById('summaryTotalValue').textContent = document.getElementById('planPrice').textContent;
+        document.getElementById('mensalidadeSummary').textContent = document.getElementById('mensalidadeText').textContent;
+        document.getElementById('extrasSummary').textContent = document.getElementById('extrasText').textContent;
+        document.getElementById('totalSummary').innerHTML = document.getElementById('totalText').innerHTML;
+        
+        // Oculta o "Total 6 meses" na aba Recorrência
+        document.getElementById('total6mesesSummary').style.display = 'none';
       } else {
-        const paymentMethod = document.getElementById("paymentMethodSelectSemestral").value;
-        if(paymentMethod === "pix") {
+        // Aba Semestral (PIX)
+        if(document.getElementById("paymentMethodSelectSemestral").value === "pix") {
           effectiveTotal = total * 0.9;
           document.getElementById('planPriceSemestral').innerHTML = 
             `<div class="discount-container">
@@ -1412,41 +1383,35 @@
         document.getElementById('extrasTextPix').textContent = "Extras: R$ " + extrasSum.toFixed(2);
         document.getElementById('totalTextPix').innerHTML = "<strong>Total: R$ " + effectiveTotal.toFixed(2) + "</strong>";
         document.getElementById('total6mesesPix').innerHTML = "<strong>Total 6 meses: R$ " + (effectiveTotal * 6).toFixed(2) + "</strong>";
-      }
-      document.getElementById('planNameTitle').textContent = "Plano " + selectedPlanName;
-      document.getElementById('planNameTitlePix').textContent = "Plano " + selectedPlanName;
-      
-      if(document.getElementById('mensalBtn').classList.contains('active')) {
-        document.getElementById('summaryTotalValue').textContent = document.getElementById('planPrice').textContent;
-        document.getElementById('mensalidadeSummary').textContent = document.getElementById('mensalidadeText').textContent;
-        document.getElementById('extrasSummary').textContent = document.getElementById('extrasText').textContent;
-        document.getElementById('totalSummary').innerHTML = document.getElementById('totalText').innerHTML;
-      } else {
-        if(document.getElementById("paymentMethodSelectSemestral").value === "pix") {
-          document.getElementById('summaryTotalValue').textContent = "R$ " + (effectiveTotal * 6).toFixed(2);
-        } else {
-          document.getElementById('summaryTotalValue').textContent = document.getElementById('planPriceSemestral').textContent;
-        }
+        document.getElementById('planNameTitlePix').textContent = "Plano " + selectedPlanName;
+        
+        // Atualiza o resumo da Página 3 (Semestral)
+        // O h2#summaryTotalValue exibirá o valor total de 6 meses com desconto
+        document.getElementById('summaryTotalValue').textContent = "R$ " + (effectiveTotal * 6).toFixed(2);
         document.getElementById('mensalidadeSummary').textContent = document.getElementById('valorPlanoText').textContent;
         document.getElementById('extrasSummary').textContent = document.getElementById('extrasTextPix').textContent;
         document.getElementById('totalSummary').innerHTML = document.getElementById('totalTextPix').innerHTML;
-        document.getElementById('total6mesesSummary').innerHTML = document.getElementById('total6mesesPix').innerHTML;
+        // Exibe o "Total 6 meses" na aba Semestral
+        document.getElementById('total6mesesSummary').innerHTML = "<strong>Total 6 meses: R$ " + (effectiveTotal * 6).toFixed(2) + "</strong>";
+        document.getElementById('total6mesesSummary').style.display = 'block';
       }
-
-      if(document.getElementById('mensalBtn').classList.contains('active')) {
-          let pmRecorrencia = document.getElementById("paymentMethodSelectRecorrencia").value;
-          if(pmRecorrencia === "pix_recorrente"){
-              document.getElementById("total6mesesSummary").style.display = "none";
-          } else {
-              document.getElementById("total6mesesSummary").style.display = "block";
-          }
-      } else {
-          let pmSemestral = document.getElementById("paymentMethodSelectSemestral").value;
-          if(pmSemestral === "pix"){
-              document.getElementById("total6mesesSummary").style.display = "block";
-          } else {
-              document.getElementById("total6mesesSummary").style.display = "none";
-          }
+      
+      // Se a seção de Cartão estiver visível (Página 4), atualiza também os elementos com sufixo "Cartao"
+      if(document.getElementById("pagamentoCartaoSection").style.display === "block") {
+        if(document.getElementById('mensalBtn').classList.contains('active')) {
+          document.getElementById("summaryTotalValueCartao").textContent = document.getElementById('planPrice').textContent;
+          document.getElementById("mensalidadeSummaryCartao").textContent = document.getElementById('mensalidadeText').textContent;
+          document.getElementById("extrasSummaryCartao").textContent = document.getElementById('extrasText').textContent;
+          document.getElementById("totalSummaryCartao").innerHTML = document.getElementById('totalText').innerHTML;
+          document.getElementById("total6mesesSummaryCartao").style.display = "none";
+        } else {
+          document.getElementById("summaryTotalValueCartao").textContent = document.getElementById('planPriceSemestral').textContent;
+          document.getElementById("mensalidadeSummaryCartao").textContent = document.getElementById('valorPlanoText').textContent;
+          document.getElementById("extrasSummaryCartao").textContent = document.getElementById('extrasTextPix').textContent;
+          document.getElementById("totalSummaryCartao").innerHTML = document.getElementById('totalTextPix').innerHTML;
+          document.getElementById("total6mesesSummaryCartao").innerHTML = document.getElementById('total6mesesPix').innerHTML;
+          document.getElementById("total6mesesSummaryCartao").style.display = "block";
+        }
       }
     }
     
@@ -1461,13 +1426,17 @@
       const recorrenciaIcon = document.getElementById('mensalIcon');
       const semestralIcon = document.getElementById('pixIcon');
       if (tab === 'mensal') {
-        recorrenciaBtn.classList.add('active'); semestralBtn.classList.remove('active');
-        tabRecorrencia.classList.add('active'); tabSemestral.classList.remove('active');
+        recorrenciaBtn.classList.add('active'); 
+        semestralBtn.classList.remove('active');
+        tabRecorrencia.classList.add('active'); 
+        tabSemestral.classList.remove('active');
         recorrenciaIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/bank-cards.png";
         semestralIcon.src = "https://img.icons8.com/ios-filled/50/000000/money-bag.png";
       } else {
-        recorrenciaBtn.classList.remove('active'); semestralBtn.classList.add('active');
-        tabRecorrencia.classList.remove('active'); tabSemestral.classList.add('active');
+        recorrenciaBtn.classList.remove('active'); 
+        semestralBtn.classList.add('active');
+        tabRecorrencia.classList.remove('active'); 
+        tabSemestral.classList.add('active');
         recorrenciaIcon.src = "https://img.icons8.com/ios-filled/50/000000/bank-cards.png";
         semestralIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/money-bag.png";
       }
@@ -1568,6 +1537,11 @@
       const metodoSelecionado = selectPagamento.value;
       
       if (metodoSelecionado === "pix" || metodoSelecionado === "pix_recorrente") {
+        // Atualiza a barra de informações da Página 3 na ordem: plano, nome, telefone, email
+        document.getElementById("topPlanoPix").textContent = "Plano: " + selectedPlanName;
+        document.getElementById("topNamePix").textContent = "Nome: " + document.getElementById("nome").value;
+        document.getElementById("topTelefonePix").textContent = "Telefone: " + document.getElementById("telefone").value;
+        document.getElementById("topEmailPix").textContent = "Email: " + document.getElementById("email").value;
         document.getElementById("checkoutSection").style.display = "none";
         document.getElementById("pagamentoPixSection").style.display = "block";
       } else if (metodoSelecionado === "credito") {
@@ -1578,6 +1552,8 @@
         document.getElementById("topEmailCartao").textContent = document.getElementById("topEmail").textContent;
         document.getElementById("checkoutSection").style.display = "none";
         document.getElementById("pagamentoCartaoSection").style.display = "block";
+        // Atualiza os valores do resumo na aba de recorrência (Cartão)
+        updatePaymentSummary();
       }
     }
     function voltarParaContratacao() {
