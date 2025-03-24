@@ -275,7 +275,7 @@
       .tab-button { padding: 8px; font-size: 0.9rem; }
       .price-section h2 { font-size: 1.3rem; }
       .pagamento h3 { font-size: 0.9rem; }
-      .pagamento p { font-size: 0.8rem; }
+      .pagamento p { font-size: 0.9rem; }
       #pagamentoCartaoSection .form-row {
         flex-direction: column;
         gap: 10px;
@@ -511,6 +511,7 @@
       color: #333;
       margin-bottom: 8px;
     }
+    
     /* ===================== ESTILOS DA PÁGINA PAGAMENTO PIX (Original) ===================== */
     #pagamentoPixSection .container { }
     #pagamentoPixSection .top-bar {
@@ -694,6 +695,19 @@
     #pagamentoPixSection .summary-payment p {
       font-size: 0.95rem;
       margin-bottom: 8px;
+    }
+    
+    /* ===================== MEDIA QUERY PARA MOBILE NA PÁGINA 3 (Pagamento Pix) ===================== */
+    @media only screen and (max-width: 480px) {
+      /* Exibe as instruções em coluna e posiciona o QR Code abaixo, centralizado */
+      #pagamentoPixSection .pix-flex {
+        flex-direction: column;
+        align-items: center;
+      }
+      #pagamentoPixSection .qr-code-container {
+        margin-top: 20px;
+        text-align: center;
+      }
     }
   </style>
 </head>
